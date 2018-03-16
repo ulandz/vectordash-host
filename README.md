@@ -1,2 +1,2 @@
 # vectordash-host
-PyPI package for Vectordash hosts
+A command line tool for interacting with Vectordash machines.
