@@ -1,2 +1,9 @@
 # vectordash-host
-A command line tool for interacting with Vectordash machines.
+A command line tool for interacting with Vectordash GPU instances.
+
+Usage Examples
+vectordash set-command <command> - ...
+
+vectordash mine - ...
+
+vectordash stop - ...
