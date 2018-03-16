@@ -23,10 +23,12 @@ def stop():
             f.close()
 
             if int(p) < 0:
+                print("Not currently mining. Run " + stylize("vdhost mine", fg("blue")) + " to start mining")
                 return
 
             # kill the process with process id pid
             subprocess.call("kill -- -$(ps -o pgid= " + p + " | grep -o [0-9]*)", shell=True)
+            # subprocess.call("kill " + p, shell=True)
 
             while pid_exists(p):
                 print("Attempting to force kill subprocess")
@@ -61,5 +63,3 @@ def pid_exists(pid):
         print("pid: " + pid + " still exists")
         return True
 
-if __name__ == "__main__":
-    stop()

@@ -3,7 +3,7 @@ import os
 from setuptools import find_packages, setup
 
 project = "vdhost"
-version = "0"
+version = "0.1"
 
 with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
     long_description = readme.read()
@@ -22,7 +22,7 @@ setup(
     keywords="vectordash",
     install_requires=[
         "click>=6.7,<7",
-        "requests=2.18.4",
+        "requests>=2.18.4",
         "colored>=1.3.5",
     ],
     setup_requires=[],

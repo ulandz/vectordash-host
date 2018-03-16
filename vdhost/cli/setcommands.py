@@ -55,7 +55,3 @@ def setcommands():
 
     except Exception as e:
         print(stylize("The following error was thrown: ", fg("red")) + str(e))
-
-
-if __name__ == "__main__":
-    setcommands()
