@@ -4,8 +4,8 @@ A command line tool for interacting with [Vectordash](http://vectordash.com) GPU
 
 #### Usage Examples
 
-1) `vectordash set-commands` - ...
+1) `vdhost set-commands` - Prompt user to set up commands for mining on their machine
 
-2) `vectordash mine` - ...
+2) `vdhost mine` - Start mining
 
-3) `vectordash stop` - ...
+3) `vdhost stop` - Stop mining
