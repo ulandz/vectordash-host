@@ -17,6 +17,8 @@ def mine():
     try:
         if (not os.path.exists("mine.sh")):
             print("Please run 'vdhost set-commands' before trying to mine.")
+            return 
+
         p = subprocess.Popen("./mine.sh")
         
         # write pid to file
