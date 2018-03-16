@@ -17,6 +17,13 @@ def setcommands():
         if not os.path.isdir(dot_folder):
             os.mkdir(dot_folder)
             os.mkdir(mining_folder)
+            print(stylize("Created " + dot_folder, fg("green")))
+            print(stylize("Created " + mining_folder, fg("green")))
+
+        elif not os.path.isdir(mining_folder):
+            os.mkdir(mining_folder)
+            print(stylize("Created " + mining_folder, fg("green")))
+
         commands = []
 
         # get commands from user
@@ -25,9 +32,9 @@ def setcommands():
                     "Once you are done, do not type anything and press Enter twice:\n\n", fg("green")))
         commands.append(cmd)
 
-        while (1):
+        while 1:
             cmd = input("")
-            if (cmd == ''):
+            if cmd == '':
                 break
             commands.append(cmd)
 
@@ -46,8 +53,8 @@ def setcommands():
         f.write('-1')
         f.close()
 
-    except TypeError:
-        print("There was an error in your provided commands. Please try again")
+    except Exception as e:
+        print(stylize("The following error was thrown: ", fg("red")) + str(e))
 
 
 if __name__ == "__main__":

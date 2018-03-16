@@ -27,10 +27,12 @@ def mine():
             f.close()
 
         else:
-            print("Please run '" + stylize("vdhost set-commands", fg("blue")) + "' before trying to mine.")
-  
-    except TypeError:
-        print(stylize("Your mining commands could not be executed. Are you sure you are using absolute paths?", fg("red")))
+            print("Please run " + stylize("vdhost set-commands", fg("blue")) + " before trying to mine.")
+
+    except Exception as e:
+        print(stylize("The following error was thrown: ", fg("red")) + str(e))
+        print(stylize("Your mining commands could not be executed. Are you sure you are using absolute paths?",
+                      fg("red")))
 
 
 if __name__ == "__main__":
