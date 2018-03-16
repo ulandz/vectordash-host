@@ -4,7 +4,6 @@ import os
 
 from colored import fg
 from colored import stylize
-from colored import attr
 
 
 @click.command()
@@ -15,20 +14,23 @@ def mine():
 
     """
     try:
-        if (not os.path.exists("mine.sh")):
-            print("Please run 'vdhost set-commands' before trying to mine.")
-            return 
+        mining_path = os.path.expanduser('~/.vectordash/mining/mine.sh')
+        pid_path = os.path.expanduser('~/.vectordash/mining/pid')
 
-        p = subprocess.Popen("./mine.sh")
-        
-        # write pid to file
-        f = open("pid", 'w')
-        f.write(str(p.pid))
-        f.close()
+        if os.path.exists(mining_path):
+            subprocess.call("chmod +x " + mining_path, shell=True)
+            p = subprocess.Popen(mining_path)
+
+            # write pid to file
+            f = open(pid_path, 'w')
+            f.write(str(p.pid))
+            f.close()
+
+        else:
+            print("Please run '" + stylize("vdhost set-commands", fg("blue")) + "' before trying to mine.")
   
     except TypeError:
-        type_err = "There was an error in your provided commands. Please try again. "
-        # print(type_err + stylize("vectordash secret <token>", fg("blue")))
+        print(stylize("Your mining commands could not be executed. Are you sure you are using absolute paths?", fg("red")))
 
 
 if __name__ == "__main__":
