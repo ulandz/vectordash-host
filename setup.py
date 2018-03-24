@@ -3,7 +3,7 @@ import os
 from setuptools import find_packages, setup
 
 project = "vdhost"
-version = "0.1"
+version = "0.2"
 
 with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
     long_description = readme.read()
@@ -11,7 +11,7 @@ with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
 setup(
     name=project,
     version=version,
-    description="Command line interface for Vectordash hosts that want automining capabilities.",
+    description="Command line interface for Vectordash hosts.",
     long_description=long_description,
     author="Arbaz Khatib",
     author_email="contact@vectordash.com",

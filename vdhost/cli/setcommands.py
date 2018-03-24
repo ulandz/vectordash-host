@@ -40,7 +40,7 @@ def setcommands():
 
         # Save commands to mining file
         mine_file = mining_folder + '/mine.sh'
-        f = open(mine_file, 'w+')
+        f = open(mine_file, 'w')
         f.write("#!/usr/bin/env bash\n")
         for cmd in commands:
             f.write(cmd)
