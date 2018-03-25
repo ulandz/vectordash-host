@@ -1,7 +1,7 @@
 Metadata-Version: 1.0
 Name: vdhost
-Version: 0.1
-Summary: Command line interface for Vectordash hosts that want automining capabilities.
+Version: 0.2
+Summary: Command line interface for Vectordash hosts.
 Home-page: https://github.com/Vectordash/vectordash-host
 Author: Arbaz Khatib
 Author-email: contact@vectordash.com
@@ -18,6 +18,8 @@ Description: # vectordash-host
         2) `vdhost mine` - Start mining
         
         3) `vdhost stop` - Stop mining
+        
+        4) `vdhost set_gpu_ids [IDS]` - Set the GPUs that user would like to list on Vectordash (space separated)
         
 Keywords: vectordash
 Platform: UNKNOWN

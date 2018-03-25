@@ -12,5 +12,6 @@ vdhost.egg-info/requires.txt
 vdhost.egg-info/top_level.txt
 vdhost/cli/__init__.py
 vdhost/cli/mine.py
+vdhost/cli/set_gpu_ids.py
 vdhost/cli/setcommands.py
 vdhost/cli/stop.py
