@@ -9,7 +9,7 @@ from colored import stylize
 @click.command()
 def mine():
     """
-    args: None
+    args: None |
     Prompt user to set up commands for mining on their machine
 
     """

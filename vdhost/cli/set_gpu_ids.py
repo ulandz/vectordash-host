@@ -4,11 +4,11 @@ from colored import fg
 from colored import stylize
 
 
-@click.command()
-@click.argument('gpu_ids', required=True, nargs=-1)
+@click.command(name='set-gpu-ids')
+@click.argument('IDs', required=True, nargs=-1)
 def set_gpu_ids(gpu_ids):
     """
-    args: gpu_ids
+    args: IDs |
     Allow user to select the GPUs they would like to rent out on Vectordash
 
     """

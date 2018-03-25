@@ -6,10 +6,10 @@ from colored import fg
 from colored import stylize
 
 
-@click.command()
-def stop():
+@click.command(name='stop-miner')
+def stop_miner():
     """
-    args: None
+    args: None |
     Prompt user to set up commands for mining on their machine
 
     """

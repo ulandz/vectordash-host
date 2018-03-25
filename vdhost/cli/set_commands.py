@@ -4,10 +4,10 @@ from colored import fg
 from colored import stylize
 
 
-@click.command()
-def setcommands():
+@click.command(name='set-commands')
+def set_commands():
     """
-    args: None
+    args: None |
     Prompt user to set up commands for mining on their machine
 
     """
