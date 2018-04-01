@@ -18,7 +18,7 @@ def set_gpu_ids(gpu_ids):
             os.mkdir(dot_folder)
             print(stylize("Created " + dot_folder, fg("green")))
 
-        # Save commands to mining file
+        # Save ids to gpu_ids file
         gpu_ids_file = dot_folder + '/gpu_ids'
 
         temp = str(gpu_ids)
