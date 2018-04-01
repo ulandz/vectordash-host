@@ -54,7 +54,7 @@ def launch():
                           fg("red")))
             exit()
         else:
-            subprocess.call("python3 " + client_py)
+            subprocess.call("python3 " + client_py, shell=True)
 
 
     except ValueError as e:
