@@ -10,4 +10,6 @@ A command line tool for interacting with [Vectordash](http://vectordash.com) GPU
 
 3) `vdhost stop` - Stop mining
 
-4) `vdhost set_gpu_ids [IDS]` - Set the GPUs that user would like to list on Vectordash (space separated)
+4) `vdhost set-gpu-ids <IDS>` - Set the GPUs that user would like to list on Vectordash (space separated)
+
+5)  `vdhost launch` - Run the client script on the host machine
