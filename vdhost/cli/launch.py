@@ -29,16 +29,12 @@ def launch():
             os.mkdir(var_vd_folder)
             print(stylize("Created " + var_vd_folder, fg("green")))
 
-        install_script = os.path.expanduser(var_vd_folder + 'install.sh')
-        if not os.path.exists(install_script):
-            print(stylize("Please go to vectordash.com to download install script and appropriate files.", fg("red")))
-            exit()
-
         client_py = os.path.expanduser(var_vd_folder + 'client.py')
         sshtunnel_py = os.path.expanduser(var_vd_folder + 'SSHtunnel.py')
         networkingprotocol_py = os.path.expanduser(var_vd_folder + 'NetworkingProtocol.py')
         specs_py = os.path.expanduser(var_vd_folder + 'specs.py')
         containercontroller_py = os.path.expanduser(var_vd_folder + 'ContainerController.py')
+
         if not os.path.exists(client_py) or not os.path.exists(sshtunnel_py) or not os.path.exists(specs_py) or \
                 not os.path.exists(networkingprotocol_py) or not os.path.exists(containercontroller_py):
             print(stylize("It seems as though you have not downloaded one or more the following files:", fg("red")))

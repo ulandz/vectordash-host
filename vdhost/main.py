@@ -5,6 +5,7 @@ from vdhost.cli.mine import mine
 from vdhost.cli.stop_miner import stop_miner
 from vdhost.cli.set_gpu_ids import set_gpu_ids
 from vdhost.cli.launch import launch
+from vdhost.cli.install import install
 
 
 @click.group()
@@ -24,6 +25,7 @@ def add_commands(cli):
     cli.add_command(stop_miner)
     cli.add_command(set_gpu_ids)
     cli.add_command(launch)
+    cli.add_command(install)
 
 
 add_commands(cli)

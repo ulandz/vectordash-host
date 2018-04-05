@@ -28,7 +28,6 @@ def stop_miner():
 
             # kill the process with process id pid
             subprocess.call("kill -- -$(ps -o pgid= " + p + " | grep -o [0-9]*)", shell=True)
-            # subprocess.call("kill " + p, shell=True)
 
             while pid_exists(p):
                 print("Attempting to force kill subprocess")
@@ -50,8 +49,8 @@ def stop_miner():
 
 
 def pid_exists(pid):
-    """Check whether pid exists in the current process table.
-    UNIX only.
+    """
+    Check whether pid exists in the current process table.
     """
     try:
         print("Double-checking to ensure process was killed")
