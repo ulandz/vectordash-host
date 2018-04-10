@@ -28,16 +28,15 @@ def install():
             os.mkdir(var_vd_folder)
             print(stylize("Created " + var_vd_folder, fg("green")))
 
-        install_script = os.path.expanduser(var_vd_folder + 'install.sh')
-        requirements = os.path.expanduser(var_vd_folder + 'requirements.txt')
+        install_script = os.path.expanduser('./install.sh')
+        requirements = os.path.expanduser('./requirements.txt')
         if not os.path.exists(install_script):
             print(stylize("You are missing one or more of the following files:", fg("red")))
 
             print(stylize(install_script, fg("blue")))
             print(stylize(requirements, fg("blue")))
 
-            print("Please go to https://vectordash.com/ to download the missing files and then move them "
-                  "to the appropriate directory: " + stylize(var_vd_folder, fg("red")))
+            print("Please go to https://vectordash.com/ to download the missing files")
 
         else:
             subprocess.call("bash " + install_script, shell=True)

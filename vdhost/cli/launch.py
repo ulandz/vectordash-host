@@ -16,18 +16,14 @@ def launch():
     try:
         print(stylize("Launching the Vectordash client on this machine", fg("green")))
 
-        # TODO
-        # This command should invoke the client Daemon
-
         var_folder = os.path.expanduser('/var/')
         var_vd_folder = os.path.expanduser(var_folder + 'vectordash/')
-        if not os.path.isdir(var_folder):
+        if not os.path.isdir(var_folder) or not os.path.isdir(var_vd_folder):
             os.mkdir(var_folder)
-            print(stylize("Created " + var_folder, fg("green")))
-
-        if not os.path.isdir(var_vd_folder):
-            os.mkdir(var_vd_folder)
-            print(stylize("Created " + var_vd_folder, fg("green")))
+            print(stylize("Could not launch", fg("red")))
+            print("Are you sure have run: ", stylize("vdhost install", fg("blue")))
+            print("If not, please navigate to the vectordash-host directory and run that command")
+            exit()
 
         client_py = os.path.expanduser(var_vd_folder + 'client.py')
         sshtunnel_py = os.path.expanduser(var_vd_folder + 'SSHtunnel.py')

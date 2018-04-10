@@ -6,8 +6,8 @@ from colored import fg
 from colored import stylize
 
 
-@click.command()
-def mine():
+@click.command(name='start-miner')
+def start_miner():
     """
     args: None |
     Prompt user to set up commands for mining on their machine
@@ -18,6 +18,7 @@ def mine():
         pid_path = os.path.expanduser('~/.vectordash/mining/pid')
 
         if os.path.exists(mining_path):
+            print("Running the miner...")
             subprocess.call("chmod +x " + mining_path, shell=True)
             p = subprocess.Popen(mining_path)
 
@@ -27,7 +28,7 @@ def mine():
             f.close()
 
         else:
-            print("Please run " + stylize("vdhost setcommands", fg("blue")) + " before trying to mine.")
+            print("Please run " + stylize("vdhost set-commands", fg("blue")) + " before trying to mine.")
 
     except Exception as e:
         print(stylize("The following error was thrown: ", fg("red")) + str(e))

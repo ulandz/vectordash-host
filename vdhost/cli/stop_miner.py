@@ -18,6 +18,7 @@ def stop_miner():
         pid_path = os.path.expanduser('~/.vectordash/mining/pid')
 
         if os.path.exists(pid_path):
+            print("Stopping the mining process now...")
             f = open(pid_path, 'r')
             p = f.read()
             f.close()
@@ -30,7 +31,7 @@ def stop_miner():
             subprocess.call("kill -- -$(ps -o pgid= " + p + " | grep -o [0-9]*)", shell=True)
 
             while pid_exists(p):
-                print("Attempting to force kill subprocess")
+                print("Attempting to stop mining")
                 subprocess.call("kill -9 -p " + p, shell=True)
 
             # write -1 to pid file
@@ -53,7 +54,7 @@ def pid_exists(pid):
     Check whether pid exists in the current process table.
     """
     try:
-        print("Double-checking to ensure process was killed")
+        print("Double-checking to ensure mining was stoped")
         os.kill(int(pid), 0)
     except OSError:
         print("pid: " + pid + " killed")

@@ -29,7 +29,7 @@ def set_commands():
         # get commands from user
         cmd = input(stylize("Please enter the commands you use to start your miner, line by line.\n"
                             "Make sure that all paths provided are absolute paths\n"
-                    "Once you are done, do not type anything and press Enter twice:\n\n", fg("green")))
+                    "Once you are done, do not type anything and press ENTER twice:\n\n", fg("green")))
         commands.append(cmd)
 
         while 1:
@@ -54,4 +54,4 @@ def set_commands():
         f.close()
 
     except Exception as e:
-        print(stylize("The following error was thrown: ", fg("red")) + str(e))
+        print(stylize("The following error was encountered: ", fg("red")) + str(e))
