@@ -1,6 +1,7 @@
 # vectordash-host
 A command line tool for interacting with [Vectordash](http://vectordash.com) GPU instances.
 
+For a more detailed overview on how to get started, how the commands work, or general questions, please go to our [docs](https://docs.vectordash.com)!
 
 #### Usage Examples
 
