@@ -44,7 +44,7 @@ def stop_miner():
             return
   
     except ValueError as e:
-        print(stylize("The following error was thrown: ", fg("red")) + str(e))
+        print(stylize("The following error was encountered: ", fg("red")) + str(e))
         print(stylize("Your mining commands could not be executed. Are you sure you are using absolute paths?",
                       fg("red")))
 

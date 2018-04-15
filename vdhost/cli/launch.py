@@ -50,6 +50,6 @@ def launch():
 
 
     except ValueError as e:
-        print(stylize("The following error was thrown: ", fg("red")) + str(e))
+        print(stylize("The following error was encountered: ", fg("red")) + str(e))
         print(stylize("The Vectordash client could not be launched. Please make a github pull request with your error.",
                       fg("red")))

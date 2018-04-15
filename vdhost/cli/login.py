@@ -4,12 +4,11 @@ from colored import fg
 from colored import stylize
 
 
-@click.command(name='set-gpu-ids')
-@click.argument('gpu_ids', required=True, nargs=-1)
-def set_gpu_ids(gpu_ids):
+@click.command(name='login')
+def login():
     """
-    args: IDs |
-    Allow user to select the GPUs they would like to rent out on Vectordash
+    args: none |
+    Allows host to login on machine to be hosted
 
     """
     try:
@@ -19,19 +18,19 @@ def set_gpu_ids(gpu_ids):
             print(stylize("Created " + dot_folder, fg("green")))
 
         # Save ids to gpu_ids file
-        gpu_ids_file = dot_folder + 'gpu_ids'
+        login_file = dot_folder + 'login'
 
-        temp = str(gpu_ids)
-        temp1 = temp.replace('(', '')
-        temp2 = temp1.replace(')', '')
-        temp3 = temp2.replace(',', '')
-        final_ids = temp3.replace('\'', '')
+        print(stylize("Email address: ", fg("blue")))
+        email = input()
+        print(stylize("Machine key: ", fg("blue")))
+        machine_key = input()
 
-        f = open(gpu_ids_file, 'w')
-        f.write(str(final_ids))
+        f = open(login_file, 'w')
+        f.write(str(email))
+        f.write(str(machine_key))
         f.close()
 
-        print(stylize("Saved GPU IDs to " + gpu_ids_file, fg("green")))
+        print(stylize("Saved login information", fg("green")))
         print("If you have already ran " + stylize("vdhost install", fg("blue")) +
               " successfully, you can now list your machine on Vectordash by running " +
               stylize("vdhost launch", fg("blue")))
