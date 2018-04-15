@@ -5,7 +5,7 @@ from colored import stylize
 
 
 @click.command(name='set-gpu-ids')
-@click.argument('IDs', required=True, nargs=-1)
+@click.argument('gpu_ids', required=True, nargs=-1)
 def set_gpu_ids(gpu_ids):
     """
     args: IDs |
