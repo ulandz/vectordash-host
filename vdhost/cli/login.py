@@ -1,5 +1,6 @@
 import click
 import os
+import json
 from colored import fg
 from colored import stylize
 
@@ -18,17 +19,19 @@ def login():
             print(stylize("Created " + dot_folder, fg("green")))
 
         # Save ids to gpu_ids file
-        login_file = dot_folder + 'login'
+        login_file = dot_folder + 'login.config'
 
+        # Ask user for their account email address and the machine key
         print(stylize("Email address: ", fg("blue")))
         email = input()
         print(stylize("Machine key: ", fg("blue")))
         machine_key = input()
 
-        f = open(login_file, 'w')
-        f.write(str(email))
-        f.write(str(machine_key))
-        f.close()
+        # Securely save data
+        with open(login_file, 'w') as f:
+            data = {'email': email,
+                    'machine_key': machine_key}
+            json.dump(data, f)
 
         print(stylize("Saved login information", fg("green")))
         print("If you have already ran " + stylize("vdhost install", fg("blue")) +
