@@ -19,7 +19,6 @@ def launch():
         var_folder = os.path.expanduser('/var/')
         var_vd_folder = os.path.expanduser(var_folder + 'vectordash/')
         if not os.path.isdir(var_folder) or not os.path.isdir(var_vd_folder):
-            os.mkdir(var_folder)
             print(stylize("Could not launch", fg("red")))
             print("Are you sure have run: ", stylize("vdhost install", fg("blue")))
             print("If not, please navigate to the vectordash-host directory and run that command")
