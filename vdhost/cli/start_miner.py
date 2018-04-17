@@ -10,16 +10,21 @@ from colored import stylize
 def start_miner():
     """
     args: None |
-    Prompt user to set up commands for mining on their machine
+    Run the miner on the machine that was set up by user
 
     """
     try:
+        # Path to mining bash file
         mining_path = os.path.expanduser('~/.vectordash/mining/mine.sh')
+
+        # Path to mining pid file
         pid_path = os.path.expanduser('~/.vectordash/mining/pid')
 
+        # If the mining file has been created, run the miner
         if os.path.exists(mining_path):
             print("Running the miner...")
-            subprocess.call("chmod +x " + mining_path, shell=True)
+            args = ['chmod', '+x', mining_path]
+            subprocess.check_call(args)
             p = subprocess.Popen(mining_path)
 
             # write pid to file

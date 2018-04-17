@@ -18,28 +18,31 @@ def install():
         print(stylize("Launching the Vectordash installation process on this machine", fg("green")))
         print(stylize("When prompted with any questions, please hit ENTER for default values", fg("green")))
 
-        var_folder = os.path.expanduser('/var/')
-        var_vd_folder = os.path.expanduser(var_folder + 'vectordash/')
-        if not os.path.isdir(var_folder):
-            os.mkdir(var_folder)
-            print(stylize("Created " + var_folder, fg("green")))
-
-        if not os.path.isdir(var_vd_folder):
-            os.mkdir(var_vd_folder)
-            print(stylize("Created " + var_vd_folder, fg("green")))
-
+        # Path to install script and pip requirements file - should be in the current directory when this is executed
         install_script = os.path.expanduser('./install.sh')
         requirements = os.path.expanduser('./requirements.txt')
-        if not os.path.exists(install_script):
+
+        # If either install script or requirements file is missing, exit the program
+        if not os.path.isfile(install_script) or not os.path.isfile(requirements):
             print(stylize("You are missing one or more of the following files:", fg("red")))
 
-            print(stylize(install_script, fg("blue")))
-            print(stylize(requirements, fg("blue")))
+            print(stylize(install_script, fg("red")))
+            print(stylize(requirements, fg("red")))
 
-            print("Please go to https://vectordash.com/ to download the missing files")
+            print("Only verified hosts can run this command")
+            print("If you are a verified host, please go to https://vectordash.com/host to download the missing files")
+
+            exit()
 
         else:
-            subprocess.call("bash " + install_script, shell=True)
+            try:
+                # Run the installation script
+                args = ['bash', install_script]
+                subprocess.check_call(args)
+
+            except subprocess.CalledProcessError:
+                print("It looks as if your files have been corrupted. Please go to https://vectordash.com/host/ "
+                      "to re-download the package and move the files to the appropriate directory: /var/vectordash/")
 
     except ValueError as e:
         print(stylize("The following error was encountered: ", fg("red")) + str(e))

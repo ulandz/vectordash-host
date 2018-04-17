@@ -13,10 +13,12 @@ def login():
 
     """
     try:
+        # Path to .vectordash directory
         dot_folder = os.path.expanduser('~/.vectordash/')
+
+        # If the .vectordash directory does not exist, create it
         if not os.path.isdir(dot_folder):
             os.mkdir(dot_folder)
-            print(stylize("Created " + dot_folder, fg("green")))
 
         # Save ids to gpu_ids file
         login_file = dot_folder + 'login.config'

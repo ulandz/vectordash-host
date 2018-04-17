@@ -12,18 +12,20 @@ def set_commands():
 
     """
     try:
-        dot_folder = os.path.expanduser('~/.vectordash')
-        mining_folder = os.path.expanduser('~/.vectordash/mining')
+        # Path to mining directory
+        dot_folder = os.path.expanduser('~/.vectordash/')
+        mining_folder = os.path.expanduser(dot_folder + 'mining/')
+
+        # If the .vectordash directory doesn't exist, create both it and the mining directory
         if not os.path.isdir(dot_folder):
             os.mkdir(dot_folder)
             os.mkdir(mining_folder)
-            print(stylize("Created " + dot_folder, fg("green")))
-            print(stylize("Created " + mining_folder, fg("green")))
 
+        # If the mining directory doesn't exist, create it
         elif not os.path.isdir(mining_folder):
             os.mkdir(mining_folder)
-            print(stylize("Created " + mining_folder, fg("green")))
 
+        # Mining commands list
         commands = []
 
         # get commands from user
@@ -32,14 +34,15 @@ def set_commands():
                     "Once you are done, do not type anything and press ENTER twice:\n\n", fg("green")))
         commands.append(cmd)
 
+        # Add all of the input commands to the list
         while 1:
             cmd = input("")
             if cmd == '':
                 break
             commands.append(cmd)
 
-        # Save commands to mining file
-        mine_file = mining_folder + '/mine.sh'
+        # Save commands to mining bash file
+        mine_file = mining_folder + 'mine.sh'
         f = open(mine_file, 'w')
         f.write("#!/usr/bin/env bash\n")
         for cmd in commands:
@@ -48,7 +51,7 @@ def set_commands():
         f.close()
 
         # Mining process is NOT running, so give pid file a value of -1
-        pid_file = mining_folder + '/pid'
+        pid_file = mining_folder + 'pid'
         f = open(pid_file, 'w+')
         f.write('-1')
         f.close()

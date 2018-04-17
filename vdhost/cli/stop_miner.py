@@ -14,27 +14,34 @@ def stop_miner():
 
     """
     try:
-
+        # Path to the mining pid file
         pid_path = os.path.expanduser('~/.vectordash/mining/pid')
 
+        # If the mining pid file exists, stop the miner
         if os.path.exists(pid_path):
+
+            # Read in pid (number)
             print("Stopping the mining process now...")
             f = open(pid_path, 'r')
             p = f.read()
             f.close()
 
+            # If the pid is below 0, then it is currently not running
             if int(p) < 0:
                 print("Not currently mining. Run " + stylize("vdhost mine", fg("blue")) + " to start mining")
                 return
 
             # kill the process with process id pid
-            subprocess.call("kill -- -$(ps -o pgid= " + p + " | grep -o [0-9]*)", shell=True)
+            args = ['kill', '--', '-$(ps', '-o', 'pgid=', p, '|', 'grep', '-o', '[0-9]*)']
+            subprocess.check_call(args)
 
+            # If the pids have not yet been killed, try again
             while pid_exists(p):
                 print("Attempting to stop mining")
-                subprocess.call("kill -9 -p " + p, shell=True)
+                args2 = ['kill', '-9', '-p', p]
+                subprocess.check_call(args2)
 
-            # write -1 to pid file
+            # write -1 to pid file (indicating the mining has stopped)
             f = open(pid_path, 'w')
             f.write("-1")
             f.close()
@@ -45,8 +52,7 @@ def stop_miner():
   
     except ValueError as e:
         print(stylize("The following error was encountered: ", fg("red")) + str(e))
-        print(stylize("Your mining commands could not be executed. Are you sure you are using absolute paths?",
-                      fg("red")))
+        print(stylize("Your miner could not be stopped. Are you sure you are using absolute paths?", fg("red")))
 
 
 def pid_exists(pid):
@@ -54,12 +60,12 @@ def pid_exists(pid):
     Check whether pid exists in the current process table.
     """
     try:
-        print("Double-checking to ensure mining was stoped")
+        print("Double-checking to ensure mining was stopped")
         os.kill(int(pid), 0)
     except OSError:
-        print("pid: " + pid + " killed")
+        print("Pid: " + pid + " killed")
         return False
     else:
-        print("pid: " + pid + " still exists")
+        print("Pid: " + pid + " still exists")
         return True
 
