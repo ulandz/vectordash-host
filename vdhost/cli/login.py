@@ -21,18 +21,15 @@ def login():
             os.mkdir(dot_folder)
 
         # Save ids to gpu_ids file
-        login_file = dot_folder + 'login.config'
+        login_file = dot_folder + 'login.json'
 
-        # Ask user for their account email address and the machine key
-        print(stylize("Email address: ", fg("blue")))
-        email = input()
+        # Ask user for their machine key
         print(stylize("Machine key: ", fg("blue")))
         machine_key = input()
 
         # Securely save data
         with open(login_file, 'w') as f:
-            data = {'email': email,
-                    'machine_key': machine_key}
+            data = {'machine_key': machine_key}
             json.dump(data, f)
 
         print(stylize("Saved login information", fg("green")))

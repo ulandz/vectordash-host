@@ -6,8 +6,8 @@ from colored import fg
 from colored import stylize
 
 
-@click.command()
-def launch():
+@click.command(name='start-hosting')
+def start_hosting():
     """
     args: None |
     Runs the Vectordash client on the host's machine
@@ -23,9 +23,9 @@ def launch():
         # If directories don't exist, exit the program and instruct user to run 'vdhost install'
         if not os.path.isdir(var_folder) or not os.path.isdir(var_vd_folder):
             print(stylize("Could not launch", fg("red")))
-            print("Are you sure have run: ", stylize("vdhost install", fg("blue")))
-            print("If not, please navigate to the vectordash-host directory and run that command")
-            exit()
+            print(stylize("Are you sure have run: ", fg("red")), stylize("vdhost install", fg("blue")))
+            print(stylize("If not, please navigate to the vectordash-host directory and run that command", fg("red")))
+            return
 
         # Client file and its dependencies - should all be in /var/vectordash/
         client_py = os.path.expanduser(var_vd_folder + 'client.py')
@@ -47,7 +47,7 @@ def launch():
 
             print(stylize("Please go to https://vectordash.com/host/ to download them and make sure they are stored "
                           "in the appropriate directory: " + var_vd_folder, fg("red")))
-            exit()
+            return
         else:
             try:
                 # Run the client script

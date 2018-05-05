@@ -10,7 +10,7 @@ from colored import stylize
 def start_miner():
     """
     args: None |
-    Run the miner on the machine that was set up by user
+    Run the miner on the machine that was set up by user with vdhost set-commands
 
     """
     try:

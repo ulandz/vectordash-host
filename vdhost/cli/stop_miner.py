@@ -10,7 +10,7 @@ from colored import stylize
 def stop_miner():
     """
     args: None |
-    Prompt user to set up commands for mining on their machine
+    Stop the mining process on the host's machine
 
     """
     try:
