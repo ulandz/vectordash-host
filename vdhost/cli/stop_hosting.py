@@ -31,7 +31,7 @@ def stop_hosting():
         # File for checking if the client is running or not
         client_running_file = os.path.expanduser(var_vd_folder + 'client_running')
 
-        # If the mining pid file exists, stop the miner
+        # If the client pid file exists, stop the client
         if os.path.exists(client_running_file):
 
             # Read in pid (number)
@@ -56,7 +56,7 @@ def stop_hosting():
                 args2 = ['kill', '-9', '-p', p]
                 subprocess.check_call(args2)
 
-            # write -1 to pid file (indicating the mining has stopped)
+            # write -1 to pid file (indicating the hosting has stopped)
             f = open(client_running_file, 'w')
             f.write("-1")
             f.close()
