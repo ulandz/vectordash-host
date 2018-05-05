@@ -1,7 +1,6 @@
 import click
 import subprocess
 import os
-import json
 
 from colored import fg
 from colored import stylize
