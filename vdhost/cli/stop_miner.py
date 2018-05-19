@@ -7,47 +7,71 @@ from colored import stylize
 
 
 @click.command(name='stop-miner')
-def stop_miner():
+@click.argument('gpu_id', nargs=1, type=int)
+def stop_miner(gpu_id):
     """
-    args: None |
+    args: gpu_id |
     Stop the mining process on the host's machine
 
     """
     try:
         # Path to the mining pid file
-        pid_path = os.path.expanduser('~/.vectordash/mining/pid')
+        pid_file = os.path.expanduser('~/.vectordash/mining/pid')
 
         # If the mining pid file exists, stop the miner
-        if os.path.exists(pid_path):
+        
+        if not os.path.exists(pid_file):
+            print("Please run " + stylize("vdhost start_miner " + str(gpu_id), 
+                fg("blue")) + " before trying to stop mining.")
+            return
+
+        # read pid file
+        f = open(pid_file, 'r')
+        pid_dat = f.read()
+        f.close()
+        
+        # convert to dict
+        pid_dat = json.loads(pid_dat)
+        pid = pid_dat[gpu_id]
+
+        # If the pid file has nonnegative pid, stop the miner
+        if pid is not None:
 
             # Read in pid (number)
-            print("Stopping the mining process now...")
-            f = open(pid_path, 'r')
-            p = f.read()
-            f.close()
+            #print("Stopping the mining process now...")
+            #f = open(pid_path, 'r')
+            #p = f.read()
+            #f.close()
 
             # If the pid is below 0, then it is currently not running
-            if int(p) < 0:
-                print("Not currently mining. Run " + stylize("vdhost mine", fg("blue")) + " to start mining")
+            if pid < 0:
+                print("Not currently mining. Run " + stylize("vdhost start_miner " + str(gpu_id), 
+                    fg("blue")) + " to start mining")
                 return
 
+            print("Stopping the mining process now...")
+
             # kill the process with process id pid
-            args = ['kill', '--', '-$(ps', '-o', 'pgid=', p, '|', 'grep', '-o', '[0-9]*)']
+            args = ['kill', '--', '-$(ps', '-o', 'pgid=', str(pid), '|', 'grep', '-o', '[0-9]*)']
             subprocess.check_call(args)
 
             # If the pids have not yet been killed, try again
-            while pid_exists(p):
+            while pid_exists(str(pid)):
                 print("Attempting to stop mining")
-                args2 = ['kill', '-9', '-p', p]
+                args2 = ['kill', '-9', '-p', str(pid)]
                 subprocess.check_call(args2)
 
-            # write -1 to pid file (indicating the mining has stopped)
-            f = open(pid_path, 'w')
-            f.write("-1")
+            # update dict
+            pid_dat[gpu_id] = -1
+
+            # write to pid file
+            f = open(pid_file, 'w')
+            f.write(json.dumps(pid_dat))
             f.close()
 
         else:
-            print("Please run " + stylize("vdhost mine", fg("blue")) + " before trying to stop mining.")
+            print("Please run " + stylize("vdhost start_miner " + str(gpu_id), 
+                fg("blue")) + " before trying to stop mining.")
             return
   
     except ValueError as e:
