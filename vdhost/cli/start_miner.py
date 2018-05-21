@@ -33,7 +33,7 @@ def start_miner(gpu_id):
             commands = json.loads(commands)
             print(commands)
             # get command associated with gpu_id and run miner if possible
-            if gpu_id in commands:
+            if gpu_id in commands.keys():
                 # run the miner
                 cmd = commands[gpu_id]
                 print("Running the miner...")
