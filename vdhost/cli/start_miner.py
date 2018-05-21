@@ -31,7 +31,7 @@ def start_miner(gpu_id):
             
             # turn commands str into dict
             commands = json.loads(commands)
-
+            print(commands)
             # get command associated with gpu_id and run miner if possible
             if gpu_id in commands:
                 # run the miner
