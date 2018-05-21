@@ -42,6 +42,14 @@ def set_commands(gpu_id):
             f = open(pid_file, 'w+')
             f.write('{}')
             f.close()
+    
+        elif not os.path.exists(commands_file):
+            f = open(commands_file, 'w+')
+            f.write('{}')
+            f.close()
+            f = open(pid_file, 'w+')
+            f.write('{}')
+            f.close()
 
 
         # read from commands file
