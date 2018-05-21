@@ -60,8 +60,8 @@ def set_commands(gpu_id):
         #                    "Make sure that all paths provided are absolute paths\n"
         #            "Once you are done, do not type anything and press ENTER twice:\n\n", fg("green")))
         
-        cmd = input(stylize("Please enter the path to a bash script that, when run, will start mining 
-                on the GPU with id " + str(gpu_id) + ":\n\n", fg("green")))
+        cmd = input(stylize("Please enter the path to a bash script that, when run, will start mining " + 
+                "on the GPU with id " + str(gpu_id) + ":\n\n", fg("green")))
         curr_data[gpu_id] = cmd
         
         new_data = json.dumps(curr_data) # string
