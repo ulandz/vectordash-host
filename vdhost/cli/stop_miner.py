@@ -63,7 +63,8 @@ def stop_miner(gpu_id):
                 subprocess.check_call(args2)
 
             # update dict
-            pid_dat[gpu_id] = -1
+            #pid_dat[gpu_id] = -1
+            pid_dat.update({str(gpu_id): -1})
 
             # write to pid file
             f = open(pid_file, 'w')

@@ -49,7 +49,8 @@ def start_miner(gpu_id):
                 # convert to dict
                 pid_dat = json.loads(pid_dat)
                 # update
-                pid_dat[gpu_id] = p.pid
+                #pid_dat[gpu_id] = p.pid
+                pid_dat.update({str(gpu_id): p.pid})
 
                 # write pid file
                 f = open(pid_file, 'w')

@@ -70,7 +70,7 @@ def set_commands(gpu_id):
         
         cmd = input(stylize("Please enter the path to a bash script that, when run, will start mining " + 
                 "on the GPU with id " + str(gpu_id) + ":\n\n", fg("green")))
-        curr_data[gpu_id] = cmd
+        curr_data.update({str(gpu_id): cmd})
         
         new_data = json.dumps(curr_data) # string
 
@@ -85,7 +85,8 @@ def set_commands(gpu_id):
         f.close()
 
         curr_pid = json.loads(dat) # dict
-        curr_pid[gpu_id] = -1
+        curr_pid.update({str(gpu_id): -1})
+
         new_pid = json.dumps(curr_pid) # string
         
         # write back to pid file
