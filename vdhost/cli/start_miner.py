@@ -17,10 +17,13 @@ def start_miner(gpu_id):
     """
     try:
         # Path to mining bash file
-        commands_file = os.path.expanduser('~/.vectordash/mining/commands')
+        var_folder = os.path.expanduser('/var/')
+        var_vd_folder = os.path.expanduser(var_folder + 'vectordash/')
+        mining_folder = os.path.expanduser(var_vd_folder + 'mining/')
+        commands_file = os.path.expanduser(mining_folder + 'commands')
 
         # Path to mining pid file
-        pid_file = os.path.expanduser('~/.vectordash/mining/pid')
+        #pid_file = os.path.expanduser('~/.vectordash/mining/pid')
 
         # If the mining file has been created, run the miner
         if os.path.exists(commands_file):
@@ -39,23 +42,23 @@ def start_miner(gpu_id):
                 print("Running the miner...")
                 args = ['chmod', '+x', cmd]
                 subprocess.check_call(args)
-                p = subprocess.Popen(cmd.split(' '), preexec_fn=os.setsid, shell=True)                
+                p = subprocess.Popen(cmd.split(' '), preexec_fn=os.setsid)                
 
                 # read pid file
-                f = open(pid_file, 'r')
-                pid_dat = f.read()
-                f.close()
+                #f = open(pid_file, 'r')
+                #pid_dat = f.read()
+                #f.close()
 
                 # convert to dict
-                pid_dat = json.loads(pid_dat)
+                #pid_dat = json.loads(pid_dat)
                 # update
                 #pid_dat[gpu_id] = p.pid
-                pid_dat.update({str(gpu_id): p.pid})
+                #pid_dat.update({str(gpu_id): p.pid})
 
                 # write pid file
-                f = open(pid_file, 'w')
-                f.write(json.dumps(pid_dat))
-                f.close()
+                #f = open(pid_file, 'w')
+                #f.write(json.dumps(pid_dat))
+                #f.close()
 
             else:
                 print("Please run " + stylize("vdhost set-commands " + str(gpu_id), fg("blue")) 

@@ -15,23 +15,27 @@ def set_commands(gpu_id):
     """
     try:
         # Path to mining directory
-        dot_folder = os.path.expanduser('~/.vectordash/')
-        mining_folder = os.path.expanduser(dot_folder + 'mining/')
-        commands_file = mining_folder + 'commands'
-        pid_file = mining_folder + 'pid'
+        #dot_folder = os.path.expanduser('~/.vectordash/')
+        #mining_folder = os.path.expanduser(dot_folder + 'mining/')
+        #commands_file = mining_folder + 'commands'
+
+        var_folder = os.path.expanduser('/var/')
+        var_vd_folder = os.path.expanduser(var_folder + 'vectordash/')
+        mining_folder = os.path.expanduser(var_vd_folder + 'mining/')
+        commands_file = os.path.expanduser(mining_folder + 'commands')
 
         curr_data = {} # dict containing current data
 
         # If the .vectordash directory doesn't exist, create both it and the mining directory
-        if not os.path.isdir(dot_folder):
-            os.mkdir(dot_folder)
+        if not os.path.isdir(var_folder):
+            os.mkdir(var_folder)
             os.mkdir(mining_folder)
             f = open(commands_file, 'w+')
             f.write('{}')
             f.close()
-            f = open(pid_file, 'w+')
-            f.write('{}')
-            f.close()
+            #f = open(pid_file, 'w+')
+            #f.write('{}')
+            #f.close()
 
         # If the mining directory doesn't exist, create it
         elif not os.path.isdir(mining_folder):
@@ -39,17 +43,17 @@ def set_commands(gpu_id):
             f = open(commands_file, 'w+')
             f.write('{}')
             f.close()
-            f = open(pid_file, 'w+')
-            f.write('{}')
-            f.close()
+            #f = open(pid_file, 'w+')
+            #f.write('{}')
+            #f.close()
     
         elif not os.path.exists(commands_file):
             f = open(commands_file, 'w+')
             f.write('{}')
             f.close()
-            f = open(pid_file, 'w+')
-            f.write('{}')
-            f.close()
+            #f = open(pid_file, 'w+')
+            #f.write('{}')
+            #f.close()
 
 
         # read from commands file
@@ -80,19 +84,19 @@ def set_commands(gpu_id):
         f.close()
 
         # read from pid file
-        f = open(pid_file, 'r')
-        dat = f.read()
-        f.close()
+        #f = open(pid_file, 'r')
+        #dat = f.read()
+        #f.close()
 
-        curr_pid = json.loads(dat) # dict
-        curr_pid.update({str(gpu_id): -1})
+        #curr_pid = json.loads(dat) # dict
+        #curr_pid.update({str(gpu_id): -1})
 
-        new_pid = json.dumps(curr_pid) # string
+        #new_pid = json.dumps(curr_pid) # string
         
         # write back to pid file
-        f = open(pid_file, 'w')
-        f.write(new_pid)
-        f.close()
+        #f = open(pid_file, 'w')
+        #f.write(new_pid)
+        #f.close()
 
         #commands.append(cmd)
 
