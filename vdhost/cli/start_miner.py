@@ -39,7 +39,7 @@ def start_miner(gpu_id):
                 print("Running the miner...")
                 args = ['chmod', '+x', cmd]
                 subprocess.check_call(args)
-                p = subprocess.Popen(cmd.split(' '), preexec_fn=os.setsid)                
+                p = subprocess.Popen(cmd.split(' '), preexec_fn=os.setsid, shell=True)                
 
                 # read pid file
                 f = open(pid_file, 'r')
