@@ -55,14 +55,18 @@ def stop_miner(gpu_id):
             print("Stopping the mining process now...")
 
             # kill the process with process id pid
-            args = ['kill', '--', '-$(ps', '-o', 'pgid=', str(pid), '|', 'grep', '-o', '[0-9]*)']
-            subprocess.check_call(args)
+            #args = ['kill', '--', '-$(ps', '-o', 'pgid=', str(pid), '|', 'grep', '-o', '[0-9]*)']
+            #args = ['kill', '--', '-'+str(pid)
+            #subprocess.check_call(args)
+            pgrp = os.getpgid(pid)
+            os.killpg(pgrp, signal.SIGTERM)
 
             # If the pids have not yet been killed, try again
             while pid_exists(str(pid)):
                 print("Attempting to stop mining")
-                args2 = ['kill', '-9', '-p', str(pid)]
-                subprocess.check_call(args2)
+                #args2 = ['kill', '-9', '-p', str(pid)]
+                #subprocess.check_call(args2)
+                os.killpg(pgrp, signal.SIGKILL)
 
             # update dict
             #pid_dat[gpu_id] = -1
