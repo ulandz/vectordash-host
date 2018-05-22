@@ -33,16 +33,18 @@ def stop_miner(gpu_id):
         
         # convert to dict
         pid_dat = json.loads(pid_dat)
-        pid = pid_dat[gpu_id]
+        #pid = pid_dat[gpu_id]
 
         # If the pid file has nonnegative pid, stop the miner
-        if pid is not None:
+        if str(gpu_id) is in pid_dat.keys():
 
             # Read in pid (number)
             #print("Stopping the mining process now...")
             #f = open(pid_path, 'r')
             #p = f.read()
             #f.close()
+        
+            pid = int(pid_dat[str(gpu_id)])
 
             # If the pid is below 0, then it is currently not running
             if pid < 0:
