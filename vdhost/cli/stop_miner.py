@@ -36,7 +36,7 @@ def stop_miner(gpu_id):
         #pid = pid_dat[gpu_id]
 
         # If the pid file has nonnegative pid, stop the miner
-        if str(gpu_id) is in pid_dat.keys():
+        if str(gpu_id) in pid_dat.keys():
 
             # Read in pid (number)
             #print("Stopping the mining process now...")
