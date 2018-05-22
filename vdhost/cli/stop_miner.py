@@ -3,6 +3,7 @@ import subprocess
 import os
 import json
 import xml.etree.ElementTree as ET
+import signal
 
 from colored import fg
 from colored import stylize
