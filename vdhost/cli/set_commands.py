@@ -6,7 +6,7 @@ import json
 
 
 @click.command(name='set-commands')
-@click.argument('gpu_id', nargs=1, type=int)
+@click.argument('gpu_id', required=True, nargs=1, type=int)
 def set_commands(gpu_id):
     """
     args: gpu_id |
@@ -62,7 +62,7 @@ def set_commands(gpu_id):
         f.close()
 
         curr_data = json.loads(dat) # dict
-        
+
 
         # Mining commands list
         #commands = []
@@ -103,7 +103,7 @@ def set_commands(gpu_id):
         #curr_pid.update({str(gpu_id): -1})
 
         #new_pid = json.dumps(curr_pid) # string
-        
+
         # write back to pid file
         #f = open(pid_file, 'w')
         #f.write(new_pid)
