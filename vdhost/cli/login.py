@@ -13,15 +13,20 @@ def login():
 
     """
     try:
-        # Path to .vectordash directory
-        dot_folder = os.path.expanduser('~/.vectordash/')
+        # Path to vectordash directory
+        var_folder = os.path.expanduser('/var/')
+        var_vd_folder = os.path.expanduser(var_folder + 'vectordash/')
 
-        # If the .vectordash directory does not exist, create it
-        if not os.path.isdir(dot_folder):
-            os.mkdir(dot_folder)
+        # If the var directory does not exist, create it
+        if not os.path.isdir(var_folder):
+            os.mkdir(var_folder)
+
+        # If the vectordash directory does not exist, create it
+        if not os.path.isdir(var_vd_folder):
+            os.mkdir(var_vd_folder)
 
         # Save ids to gpu_ids file
-        login_file = dot_folder + 'login.json'
+        login_file = var_vd_folder + 'login.json'
 
         # Ask user for their machine key
         print(stylize("Machine key: ", fg("blue")))
