@@ -32,6 +32,10 @@ def stop_hosting():
                           fg("red")))
             return
 
+        if not os.path.isfile("/etc/supervisor/conf.d/vdclient.conf"):
+            print(stylize("Something went wrong during the install. Please try running 'vdhost install' again."))
+            return
+
         # File for checking if the client is running or not
         client_running_file = os.path.expanduser(var_vd_folder + 'client_running')
 
@@ -50,15 +54,17 @@ def stop_hosting():
                       stylize("vdhost start-hosting", fg("blue")) + " to start hosting on Vectordash")
                 return
 
+            subprocess.call("sudo supervisorctl stop vdclient", shell=True)
+
             # kill the process with process id pid
-            args = ['kill', '--', '-$(ps', '-o', 'pgid=', p, '|', 'grep', '-o', '[0-9]*)']
-            subprocess.check_call(args)
+            #args = ['kill', '--', '-$(ps', '-o', 'pgid=', p, '|', 'grep', '-o', '[0-9]*)']
+            #subprocess.check_call(args)
 
             # If the pids have not yet been killed, try again
-            while pid_exists(p):
-                print("Attempting to force stop the client process")
-                args2 = ['kill', '-9', '-p', p]
-                subprocess.check_call(args2)
+            #while pid_exists(p):
+            #    print("Attempting to force stop the client process")
+            #    args2 = ['kill', '-9', '-p', p]
+            #    subprocess.check_call(args2)
 
             # write -1 to pid file (indicating the hosting has stopped)
             f = open(client_running_file, 'w')
@@ -71,7 +77,6 @@ def stop_hosting():
 
     except ValueError as e:
         print(stylize("The following error was encountered: ", fg("red")) + str(e))
-
 
 def pid_exists(pid):
     """

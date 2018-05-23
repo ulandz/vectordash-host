@@ -52,12 +52,18 @@ def start_hosting():
             print(stylize("Please go to https://vectordash.com/host/ to download them and make sure they are stored "
                           "in the appropriate directory: " + var_vd_folder, fg("red")))
             return
+
+        if not os.path.isfile("/etc/supervisor/conf.d/vdclient.conf"):
+            print(stylize("Something went wrong during the install. Please try running 'vdhost install' again."))
+            return
+
         else:
             try:
                 # Run the client script
-                args = ['python3', client_py]
-                subprocess.check_call(args)
-
+                #args = ['python3', client_py]
+                #subprocess.check_call(args)
+                subprocess.call("sudo supervisorctl start vdclient", shell=True) 
+            
             except subprocess.CalledProcessError:
                 print("It looks as if your files have been corrupted. Please go to https://vectordash.com/host/ "
                       "to re-download the package and move the files to the appropriate directory: " + var_vd_folder)
