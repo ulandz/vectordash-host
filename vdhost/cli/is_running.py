@@ -20,6 +20,10 @@ def is_running():
         var_folder = os.path.expanduser('/var/')
         var_vd_folder = os.path.expanduser(var_folder + 'vectordash/')
 
+        if not os.path.isfile(var_vd_folder + 'install_complete'):
+            print(stylize("Please run 'vdhost install' first!", fg("red")))
+            return
+
         # Client file and its dependencies - should all be in /var/vectordash/
         client_py = os.path.expanduser(var_vd_folder + 'client.py')
         sshtunnel_py = os.path.expanduser(var_vd_folder + 'SSHtunnel.py')
