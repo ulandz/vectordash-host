@@ -14,16 +14,15 @@ def start_hosting():
 
     """
     try:
+        # Path to vectordash directory
+        var_folder = os.path.expanduser('/var/')
+        var_vd_folder = os.path.expanduser(var_folder + 'vectordash/')
 
         if not os.path.isfile(var_vd_folder + 'install_complete'):
             print(stylize("Please run 'vdhost install' first!", fg("red")))
             return
 
         print(stylize("Launching the Vectordash client on this machine", fg("green")))
-
-        # Path to vectordash directory
-        var_folder = os.path.expanduser('/var/')
-        var_vd_folder = os.path.expanduser(var_folder + 'vectordash/')
 
         # If directories don't exist, exit the program and instruct user to run 'vdhost install'
         if not os.path.isdir(var_folder) or not os.path.isdir(var_vd_folder):
@@ -61,7 +60,7 @@ def start_hosting():
 
             except subprocess.CalledProcessError:
                 print("It looks as if your files have been corrupted. Please go to https://vectordash.com/host/ "
-                      "to re-download the package and move the files to the appropriate directory: /var/vectordash/")
+                      "to re-download the package and move the files to the appropriate directory: " + var_vd_folder)
 
     except ValueError as e:
         print(stylize("The following error was encountered: ", fg("red")) + str(e))

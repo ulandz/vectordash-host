@@ -40,7 +40,7 @@ def login():
         print(stylize("Saved login information", fg("green")))
         print("If you have already ran " + stylize("vdhost install", fg("blue")) +
               " successfully, you can now list your machine on Vectordash by running " +
-              stylize("vdhost launch", fg("blue")))
+              stylize("vdhost start-hosting", fg("blue")))
 
     except Exception as e:
         print(stylize("The following error was encountered: ", fg("red")) + str(e))

@@ -34,7 +34,7 @@ def is_running():
         # If any of the client files are missing, program will not execute
         if not os.path.isfile(client_py) or not os.path.isfile(sshtunnel_py) or not os.path.isfile(specs_py) or \
                 not os.path.isfile(networkingprotocol_py) or not os.path.isfile(containercontroller_py):
-            print(stylize("The Vectordash hosting client is NOT running on this machine", fg("red")))
+            print(stylize("The Vectordash hosting client is NOT running on this machine. You are missing a file(s)", fg("red")))
             return
         else:
             try:
