@@ -74,8 +74,8 @@ def set_commands(gpu_id):
 
         print("BP-2")
         
-        cmd = input(stylize("Please enter the path to a bash script that, when run, will start mining on the GPU with id " + str(gpu_id) + ":\n\n", fg("green")))
-    
+        #cmd = input(stylize("Please enter the path to a bash script that, when run, will start mining on the GPU with id " + str(gpu_id) + ":\n\n", fg("green")))
+        cmd = input("Please enter path: ")
         print("BP-1")
 
         curr_data.update({str(gpu_id): cmd})
