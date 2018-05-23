@@ -20,6 +20,10 @@ def stop_miner(gpu_id):
     """
     try:
 
+        if not os.path.isfile(var_vd_folder + 'install_complete'):
+            print(stylize("Please run 'vdhost install' first!", fg("red")))
+            return
+
         # Path to the mining pid file
         #pid_file = os.path.expanduser('~/.vectordash/mining/pid')
 

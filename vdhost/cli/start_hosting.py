@@ -14,6 +14,11 @@ def start_hosting():
 
     """
     try:
+
+        if not os.path.isfile(var_vd_folder + 'install_complete'):
+            print(stylize("Please run 'vdhost install' first!", fg("red")))
+            return
+
         print(stylize("Launching the Vectordash client on this machine", fg("green")))
 
         # Path to vectordash directory

@@ -19,6 +19,10 @@ def stop_hosting():
         # Path to vectordash directory
         var_folder = os.path.expanduser('/var/')
         var_vd_folder = os.path.expanduser(var_folder + 'vectordash/')
+       
+        if not os.path.isfile(var_vd_folder + 'install_complete'):
+            print(stylize("Please run 'vdhost install' first!", fg("red")))
+            return
 
         # If directories don't exist, exit the program and instruct user to run 'vdhost install'
         if not os.path.isdir(var_folder) or not os.path.isdir(var_vd_folder):

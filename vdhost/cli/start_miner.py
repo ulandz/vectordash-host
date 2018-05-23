@@ -25,6 +25,10 @@ def start_miner(gpu_id):
         # Path to mining pid file
         #pid_file = os.path.expanduser('~/.vectordash/mining/pid')
 
+        if not os.path.isfile(var_vd_folder + 'install_complete'):
+            print(stylize("Please run 'vdhost install' first!", fg("red")))
+            return
+
         # If the mining file has been created, run the miner
         if os.path.exists(commands_file):
             # read commands file

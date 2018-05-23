@@ -23,6 +23,10 @@ def set_commands(gpu_id):
         var_vd_folder = os.path.expanduser(var_folder + 'vectordash/')
         mining_folder = os.path.expanduser(var_vd_folder + 'mining/')
         commands_file = os.path.expanduser(mining_folder + 'commands')
+        
+        if not os.path.isfile(var_vd_folder + 'install_complete'):
+            print(stylize("Please run 'vdhost install' first!", fg("red")))
+            return
 
         curr_data = {} # dict containing current data
 
