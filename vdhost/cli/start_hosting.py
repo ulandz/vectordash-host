@@ -37,10 +37,12 @@ def start_hosting():
         networkingprotocol_py = os.path.expanduser(var_vd_folder + 'NetworkingProtocol.py')
         specs_py = os.path.expanduser(var_vd_folder + 'specs.py')
         containercontroller_py = os.path.expanduser(var_vd_folder + 'ContainerController.py')
+        helper_py = os.path.expanduser(var_vd_folder + 'helper.py')
 
         # If any of the client files are missing, program will not execute
         if not os.path.isfile(client_py) or not os.path.isfile(sshtunnel_py) or not os.path.isfile(specs_py) or \
-                not os.path.isfile(networkingprotocol_py) or not os.path.isfile(containercontroller_py):
+                not os.path.isfile(networkingprotocol_py) or not os.path.isfile(containercontroller_py) or \
+                not os.path.isfile(helper_py):
             print(stylize("It seems as though you have not downloaded one or more the following files:", fg("red")))
 
             print(stylize(client_py, fg("red")))
@@ -61,6 +63,10 @@ def start_hosting():
             except subprocess.CalledProcessError:
                 print("It looks as if your files have been corrupted. Please go to https://vectordash.com/host/ "
                       "to re-download the package and move the files to the appropriate directory: " + var_vd_folder)
+
+            except PermissionError:
+                print("You do not have permission to execute this. Try re-running the command as sudo: "
+                      + stylize("sudo vdhost start-hosting", fg("blue")))
 
     except ValueError as e:
         print(stylize("The following error was encountered: ", fg("red")) + str(e))
