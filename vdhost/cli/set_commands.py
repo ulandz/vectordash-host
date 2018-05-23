@@ -71,17 +71,28 @@ def set_commands(gpu_id):
         #cmd = input(stylize("Please enter the commands you use to start your miner, line by line.\n"
         #                    "Make sure that all paths provided are absolute paths\n"
         #            "Once you are done, do not type anything and press ENTER twice:\n\n", fg("green")))
+
+        print("BP-2")
         
         cmd = input(stylize("Please enter the path to a bash script that, when run, will start mining " + 
                 "on the GPU with id " + str(gpu_id) + ":\n\n", fg("green")))
+    
+        print("BP-1")
+
         curr_data.update({str(gpu_id): cmd})
-        
+    
+        print("BP0")       
+ 
         new_data = json.dumps(curr_data) # string
+    
+        print("BP1")
 
         # write back to commands file
         f = open(commands_file, 'w')
         f.write(new_data)
         f.close()
+        
+        print("BP2")
 
         # read from pid file
         #f = open(pid_file, 'r')
