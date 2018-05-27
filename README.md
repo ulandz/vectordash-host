@@ -1,5 +1,5 @@
 # vectordash-host
-A command line tool for interacting with [Vectordash](http://vectordash.com) GPU instances.
+A command line tool for hosting your machine as [Vectordash](http://vectordash.com) GPU instances.
 
 For a more detailed overview on how to get started, how the commands work, or general questions, please go to our [docs](https://docs.vectordash.com)!
 
@@ -7,12 +7,16 @@ For a more detailed overview on how to get started, how the commands work, or ge
 
 1) `vdhost install` - Install dependencies on the host machine to configure it for hosting
 
-2) `vdhost launch` - Run the client script on the host machine
+2) `vdhost is-running` - Check if the client daemon process is running on this machine
 
-3) `vdhost set-commands` - Prompt user to set up commands for mining on their machine
+3) `vdhost login` - Allows the user to authenticate themselves and their machine
 
-4) `vdhost set-gpu-ids <IDS>` - Set the GPUs that user would like to list on Vectordash (space separated)
+4) `vdhost set-commands` - Allows user to set up miner on their machine
 
-5) `vdhost start-miner` - Start mining
+5) `vdhost start-hosting` - Runs the client daemon that brings the machine online and hosts it on Vectordash
 
-6) `vdhost stop-miner` - Stop mining
+6) `vdhost stop-hosting` - Stops the client daemon and removes the machine from being hosted on Vectordash
+
+7) `vdhost start-miner GPU_ID` - Starts the miner of your choice for the provided GPU (id)
+
+8) `vdhost stop-miner GPU_ID` - Stops the miner for the provided GPU (id)
