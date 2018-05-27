@@ -11,7 +11,7 @@ from colored import stylize
 
 
 @click.command(name='stop-miner')
-@click.argument('gpu_id', nargs=1, type=int)
+@click.argument('gpu_id', nargs=1, type=int, required=True)
 def stop_miner(gpu_id):
     """
     args: gpu_id |
