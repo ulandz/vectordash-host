@@ -13,32 +13,34 @@ def login():
 
     """
     try:
-        # Path to .vectordash directory
-        dot_folder = os.path.expanduser('~/.vectordash/')
+        # Path to vectordash directory
+        var_folder = os.path.expanduser('/var/')
+        var_vd_folder = os.path.expanduser(var_folder + 'vectordash/')
 
-        # If the .vectordash directory does not exist, create it
-        if not os.path.isdir(dot_folder):
-            os.mkdir(dot_folder)
+        # If the var directory does not exist, create it
+        if not os.path.isdir(var_folder):
+            os.mkdir(var_folder)
+
+        # If the vectordash directory does not exist, create it
+        if not os.path.isdir(var_vd_folder):
+            os.mkdir(var_vd_folder)
 
         # Save ids to gpu_ids file
-        login_file = dot_folder + 'login.config'
+        login_file = var_vd_folder + 'login.json'
 
-        # Ask user for their account email address and the machine key
-        print(stylize("Email address: ", fg("blue")))
-        email = input()
+        # Ask user for their machine key
         print(stylize("Machine key: ", fg("blue")))
         machine_key = input()
 
         # Securely save data
         with open(login_file, 'w') as f:
-            data = {'email': email,
-                    'machine_key': machine_key}
+            data = {'machine_key': machine_key}
             json.dump(data, f)
 
         print(stylize("Saved login information", fg("green")))
         print("If you have already ran " + stylize("vdhost install", fg("blue")) +
               " successfully, you can now list your machine on Vectordash by running " +
-              stylize("vdhost launch", fg("blue")))
+              stylize("vdhost start-hosting", fg("blue")))
 
     except Exception as e:
         print(stylize("The following error was encountered: ", fg("red")) + str(e))
