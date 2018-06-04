@@ -28,19 +28,22 @@ def login():
         # Save ids to gpu_ids file
         login_file = var_vd_folder + 'login.json'
 
-        # Ask user for their machine key
-        print(stylize("Machine key: ", fg("blue")))
-        machine_key = input()
+        # Ask user for email address
+        email = input(stylize("Email: ", fg("blue")))
+
+        # Ask user for machine key
+        machine_key = input(stylize("Machine key: ", fg("blue")))
 
         # Securely save data
         with open(login_file, 'w') as f:
-            data = {'machine_key': machine_key}
+            data = {'email': email, 'machine_key': machine_key}
             json.dump(data, f)
 
         print(stylize("Saved login information", fg("green")))
         print("If you have already ran " + stylize("vdhost install", fg("blue")) +
               " successfully, you can now list your machine on Vectordash by running " +
               stylize("vdhost start-hosting", fg("blue")))
-
+    except PermissionError:
+        print("A Permission Denied Error was encountered. Try executing the command again as such: " + stylize("sudo vdhost login", fg("blue")))
     except Exception as e:
         print(stylize("The following error was encountered: ", fg("red")) + str(e))
