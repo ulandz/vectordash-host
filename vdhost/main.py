@@ -4,10 +4,7 @@ from vdhost.cli.install import install
 from vdhost.cli.is_running import is_running
 from vdhost.cli.login import login
 from vdhost.cli.set_commands import set_commands
-<<<<<<< HEAD
-=======
 from vdhost.cli.start_hosting import start_hosting
->>>>>>> b7d8144391e44774cf62b3002a0ae5346f384bce
 from vdhost.cli.start_miner import start_miner
 from vdhost.cli.stop_hosting import stop_hosting
 from vdhost.cli.stop_miner import stop_miner
@@ -25,14 +22,6 @@ def cli():
 
 
 def add_commands(cli):
-<<<<<<< HEAD
-    cli.add_command(install)
-    cli.add_command(launch)
-    cli.add_command(login)
-    cli.add_command(set_commands)
-    cli.add_command(start_miner)
-    cli.add_command(stop_miner)
-=======
     cli.add_command(install)                # Installs all the dependencies for hosting on the machine
     cli.add_command(is_running)             # Checks if the client is running
     cli.add_command(login)                  # Allows the user to authenticate themselves and their machine
@@ -41,7 +30,6 @@ def add_commands(cli):
     cli.add_command(start_miner)            # Run the miner on the host machine while it is idle
     cli.add_command(stop_hosting)           # Stop the client on the host machine to take the machines offline
     cli.add_command(stop_miner)             # Stop the miner on the host machine
->>>>>>> b7d8144391e44774cf62b3002a0ae5346f384bce
 
 
 add_commands(cli)
