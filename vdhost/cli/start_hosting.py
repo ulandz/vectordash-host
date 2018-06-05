@@ -40,6 +40,7 @@ def start_hosting():
                 resp = json.loads(resp)
                 if not resp['valid_authentication']:
                     print("You do not have valid authentication. Did you run 'vdhost login'?")
+                    exit(0)
         except:
             print("An error occurred, Please make sure you have run 'vdhost login' and provided "
                   "the correct email address and machine key.")

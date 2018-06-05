@@ -54,9 +54,11 @@ def stop_hosting():
                 num_instances = int(resp['active_instance'])
                 if (num_instances < 0):
                     print("You do not have valid authentication. Did you run 'vdhost login'?")
+                    exit(0)
                 elif (num_instances > 0):
                     print("There are active sessions running on your machine. You cannot stop hosting until "
                           "those sessions are complete.")
+                    exit(0)
         except:
             print("An error occurred, Please make sure you have run 'vdhost login' and provided "
                   "the correct email address and machine key.")

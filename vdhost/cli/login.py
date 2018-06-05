@@ -44,7 +44,7 @@ def login():
         resp = json.loads(resp)
         if not resp['valid_authentication']:
             print("You do not have valid authentication. Did you run 'vdhost login'?")
-
+            exit(0)
         else:
             # Securely save data
             with open(login_file, 'w') as f:
