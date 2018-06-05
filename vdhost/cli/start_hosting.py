@@ -7,6 +7,8 @@ import json
 from colored import fg
 from colored import stylize
 
+from vdhost import VECTORDASH_URL
+
 
 @click.command(name='start-hosting')
 def start_hosting():
@@ -24,7 +26,6 @@ def start_hosting():
             print(stylize("Please run 'vdhost install' first!", fg("red")))
             return
 
-        
         # path to login file
         login_file = os.path.expanduser(var_vd_folder + 'login.json')
         
@@ -33,16 +34,15 @@ def start_hosting():
                 data = json.load(f)
                 email = data["email"]
                 machine_key = data["machine_key"]
-                r = requests.post("https://c9c9d163.ngrok.io/authenticate-host/", 
-                    data = {'email': email, 'machine_key': machine_key})
+                r = requests.post(VECTORDASH_URL + "authenticate-host/",
+                                  data={'email': email, 'machine_key': machine_key})
                 resp = r.text
                 resp = json.loads(resp)
-                if (not resp['valid_authentication']):
+                if not resp['valid_authentication']:
                     print("You do not have valid authentication. Did you run 'vdhost login'?")
         except:
-            print("An error occurred, Please make sure you have run 'vdhost login' and provided 
-he correct email address and machine key.")
-
+            print("An error occurred, Please make sure you have run 'vdhost login' and provided "
+                  "the correct email address and machine key.")
 
         print(stylize("Launching the Vectordash client on this machine", fg("green")))
 
