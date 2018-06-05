@@ -1,9 +1,13 @@
 import click
 import subprocess
 import os
+import requests
+import json
 
 from colored import fg
 from colored import stylize
+
+from vdhost import VECTORDASH_URL
 
 
 @click.command(name='stop-hosting')
@@ -35,6 +39,28 @@ def stop_hosting():
         if not os.path.isfile("/etc/supervisor/conf.d/vdclient.conf"):
             print(stylize("Something went wrong during the install. Please try running 'vdhost install' again."))
             return
+
+        # check for active instances
+        login_file = os.path.expanduser(var_vd_folder + 'login.json')
+        try:
+            with open(login_file) as f:
+                data = json.load(f)
+                email = data["email"]
+                machine_key = data["machine_key"]
+                r = requests.post(VECTORDASH_URL + "active-instance-count/",
+                                  data={'email': email, 'machine_key': machine_key})
+                resp = r.text
+                resp = json.loads(resp)
+                num_instances = int(resp['active_instance'])
+                if (num_instances < 0):
+                    print("You do not have valid authentication. Did you run 'vdhost login'?")
+                elif (num_instances > 0):
+                    print("There are active sessions running on your machine. You cannot stop hosting until "
+                          "those sessions are complete.")
+        except:
+            print("An error occurred, Please make sure you have run 'vdhost login' and provided "
+                  "the correct email address and machine key.")
+
 
         # File for checking if the client is running or not
         client_running_file = os.path.expanduser(var_vd_folder + 'client_running')
