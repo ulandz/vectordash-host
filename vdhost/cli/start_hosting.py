@@ -39,11 +39,11 @@ def start_hosting():
                 resp = r.text
                 resp = json.loads(resp)
                 if not resp['valid_authentication']:
-                    print("You do not have valid authentication. Did you run 'vdhost login'?")
+                    print("Invalid authentication information. Did you run " + stylize("vdhost login", fg("blue")) + "?")
                     exit(0)
         except:
-            print("An error occurred, Please make sure you have run 'vdhost login' and provided "
-                  "the correct email address and machine key.")
+            print("An error occurred, Please make sure you have run " + stylize("vdhost login", fg("blue")) +
+                  " and provided the correct email address and machine key.")
 
         print(stylize("Launching the Vectordash client on this machine", fg("green")))
 
@@ -79,7 +79,7 @@ def start_hosting():
             return
 
         if not os.path.isfile("/etc/supervisor/conf.d/vdclient.conf"):
-            print(stylize("Something went wrong during the install. Please try running 'vdhost install' again."))
+            print(stylize("Something went wrong during the install. Please try running 'vdhost install' again.", fg("red")))
             return
 
         else:

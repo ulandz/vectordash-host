@@ -41,10 +41,12 @@ def login():
         r = requests.post(VECTORDASH_URL + "authenticate-host/",
                           data={'email': email, 'machine_key': machine_key})
         resp = r.text
+        print(resp)
+        print(r)
         resp = json.loads(resp)
         if not resp['valid_authentication']:
-            print("You do not have valid authentication. Did you run 'vdhost login'?")
-            exit(0)
+            print(stylize("Your authentication information is invalid.", fg("red")))
+
         else:
             # Securely save data
             with open(login_file, 'w') as f:
