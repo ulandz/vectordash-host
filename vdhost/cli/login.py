@@ -42,6 +42,7 @@ def login():
                           data={'email': email, 'machine_key': machine_key})
         resp = r.text
         resp = json.loads(resp)
+
         if not resp['valid_authentication']:
             print(stylize("Your authentication information is invalid.", fg("red")))
 
@@ -52,7 +53,7 @@ def login():
                 json.dump(data, f)
 
             print(stylize("Saved login information", fg("green")))
-    except PermissionError:
+    except OSError:
         print("A Permission Denied Error was encountered. Try executing the command again as such: " + stylize("sudo vdhost login", fg("blue")))
     except Exception as e:
         print(stylize("The following error was encountered: ", fg("red")) + str(e))
