@@ -40,6 +40,7 @@ def login():
 
         r = requests.post(VECTORDASH_URL + "authenticate-host/",
                           data={'email': email, 'machine_key': machine_key})
+
         resp = r.text
         resp = json.loads(resp)
 
@@ -54,6 +55,8 @@ def login():
 
             print(stylize("Saved login information", fg("green")))
     except OSError:
-        print("A Permission Denied Error was encountered. Try executing the command again as such: " + stylize("sudo vdhost login", fg("blue")))
+        print(stylize("A Permission Denied Error was encountered. Try executing the command again as such: ", fg("red"))
+              + stylize("sudo vdhost login", fg("blue")))
+        
     except Exception as e:
         print(stylize("The following error was encountered: ", fg("red")) + str(e))
