@@ -41,8 +41,6 @@ def login():
         r = requests.post(VECTORDASH_URL + "authenticate-host/",
                           data={'email': email, 'machine_key': machine_key})
         resp = r.text
-        print(resp)
-        print(r)
         resp = json.loads(resp)
         if not resp['valid_authentication']:
             print(stylize("Your authentication information is invalid.", fg("red")))
@@ -54,9 +52,6 @@ def login():
                 json.dump(data, f)
 
             print(stylize("Saved login information", fg("green")))
-            print("If you have already ran " + stylize("vdhost install", fg("blue")) +
-                  " successfully, you can now list your machine on Vectordash by running " +
-                  stylize("vdhost start-hosting", fg("blue")))
     except PermissionError:
         print("A Permission Denied Error was encountered. Try executing the command again as such: " + stylize("sudo vdhost login", fg("blue")))
     except Exception as e:
