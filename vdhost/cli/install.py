@@ -19,15 +19,12 @@ def install():
         print(stylize("When prompted with any questions, please hit ENTER for default values", fg("green")))
 
         # Path to install script and pip requirements file - should be in the current directory when this is executed
-        install_script = os.path.expanduser('./install.sh')
-        requirements = os.path.expanduser('./requirements.txt')
+        install_script = os.path.expanduser('/var/vectordash/client/install.sh')
 
         # If either install script or requirements file is missing, exit the program
-        if not os.path.isfile(install_script) or not os.path.isfile(requirements):
-            print(stylize("You are missing one or more of the following files:", fg("red")))
-
+        if not os.path.isfile(install_script):
+            print(stylize("You are missing the following file:", fg("red")))
             print(stylize(install_script, fg("red")))
-            print(stylize(requirements, fg("red")))
 
             print("Only verified hosts can run this command")
             print("If you are a verified host, please go to https://vectordash.com/host to download the missing files")

@@ -20,6 +20,7 @@ def login():
         # Path to vectordash directory
         var_folder = os.path.expanduser('/var/')
         var_vd_folder = os.path.expanduser(var_folder + 'vectordash/')
+        client_vd_folder = os.path.expanduser(var_vd_folder + 'client/')
 
         # If the var directory does not exist, create it
         if not os.path.isdir(var_folder):
@@ -28,6 +29,10 @@ def login():
         # If the vectordash directory does not exist, create it
         if not os.path.isdir(var_vd_folder):
             os.mkdir(var_vd_folder)
+
+        # If the client directory does not exist, create it
+        if not os.path.isdir(client_vd_folder):
+            os.mkdir(client_vd_folder)
 
         # Save ids to gpu_ids file
         login_file = var_vd_folder + 'login.json'

@@ -1,5 +1,6 @@
 import click
 
+from vdhost.cli.get_package import get_package
 from vdhost.cli.install import install
 from vdhost.cli.is_running import is_running
 from vdhost.cli.login import login
@@ -22,6 +23,7 @@ def cli():
 
 
 def add_commands(cli):
+    cli.add_command(get_package)            # Retrieves the client package for the hosting
     cli.add_command(install)                # Installs all the dependencies for hosting on the machine
     cli.add_command(is_running)             # Checks if the client is running
     cli.add_command(login)                  # Allows the user to authenticate themselves and their machine
