@@ -34,9 +34,6 @@ def login():
         if not os.path.isdir(client_vd_folder):
             os.mkdir(client_vd_folder)
 
-        # Save ids to gpu_ids file
-        login_file = var_vd_folder + 'login.json'
-
         # Ask user for email address
         email = input(stylize("Email: ", fg("blue")))
 
@@ -53,14 +50,18 @@ def login():
             print(stylize("Your authentication information is invalid.", fg("red")))
 
         else:
+            # login credentials
+            login_file = var_vd_folder + 'login.json'
+
             # Securely save data
             with open(login_file, 'w') as f:
                 data = {'email': email, 'machine_key': machine_key}
                 json.dump(data, f)
 
             print(stylize("Saved login information", fg("green")))
+
     except OSError:
-        print(stylize("A Permission Denied Error was encountered. Try executing the command again as such: ", fg("red"))
+        print(stylize("A Permission Denied Error was encountered. Try executing the command again with sudo: ", fg("red"))
               + stylize("sudo vdhost login", fg("blue")))
         
     except Exception as e:

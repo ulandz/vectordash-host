@@ -14,10 +14,6 @@ def set_commands(gpu_id):
 
     """
     try:
-        # Path to mining directory
-        #dot_folder = os.path.expanduser('~/.vectordash/')
-        #mining_folder = os.path.expanduser(dot_folder + 'mining/')
-        #commands_file = mining_folder + 'commands'
 
         var_folder = os.path.expanduser('/var/')
         var_vd_folder = os.path.expanduser(var_folder + 'vectordash/')
@@ -25,10 +21,10 @@ def set_commands(gpu_id):
         commands_file = os.path.expanduser(mining_folder + 'commands')
         
         if not os.path.isfile(var_vd_folder + 'install_complete'):
-            print(stylize("Please run 'vdhost install' first!", fg("red")))
-            return
+            print("Please run " + stylize("vdhost install", fg("blue")) + " first!")
+            exit(0)
 
-        curr_data = {} # dict containing current data
+        curr_data = {}  # dict containing current data
 
         # If the .vectordash directory doesn't exist, create both it and the mining directory
         if not os.path.isdir(var_folder):
@@ -37,9 +33,6 @@ def set_commands(gpu_id):
             f = open(commands_file, 'w+')
             f.write('{}')
             f.close()
-            #f = open(pid_file, 'w+')
-            #f.write('{}')
-            #f.close()
 
         # If the mining directory doesn't exist, create it
         elif not os.path.isdir(mining_folder):
@@ -47,25 +40,18 @@ def set_commands(gpu_id):
             f = open(commands_file, 'w+')
             f.write('{}')
             f.close()
-            #f = open(pid_file, 'w+')
-            #f.write('{}')
-            #f.close()
     
         elif not os.path.exists(commands_file):
             f = open(commands_file, 'w+')
             f.write('{}')
             f.close()
-            #f = open(pid_file, 'w+')
-            #f.write('{}')
-            #f.close()
-
 
         # read from commands file
         f = open(commands_file, 'r')
         dat = f.read()
         f.close()
 
-        curr_data = json.loads(dat) # dict
+        curr_data = json.loads(dat)  # dict
 
 
         # Mining commands list
@@ -136,4 +122,4 @@ def set_commands(gpu_id):
         #f.close()
 
     except Exception as e:
-        print(stylize("The following error was encountered: ", fg("red")) + str(e))
+        print(stylize("The following error was encountered: " + str(e), fg("red")))

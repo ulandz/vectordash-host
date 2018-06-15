@@ -32,10 +32,11 @@ def get_package():
         login_file = var_vd_folder + 'login.json'
 
         if not os.path.isfile(login_file):
-            print(stylize("Error getting package. You are not logged in on this machine", fg("red")))
+            print(stylize("You are not logged in on this machine. Please run ", fg("red")) +
+                  stylize("vdhost login", fg("blue")))
             exit(0)
 
-        with open(login_file) as f:
+        with open(login_file, 'r') as f:
             data = json.load(f)
             email = data["email"]
             machine_key = data["machine_key"]
@@ -44,7 +45,7 @@ def get_package():
                           data={'email': email, 'machine_key': machine_key})
 
         if r.status_code != 200:
-            print(stylize("Your authentication information is invalid.", fg("red")))
+            print(stylize("Your authentication information is invalid. Only VERIFIED hosts can get access.", fg("red")))
             exit(0)
 
         else:
@@ -54,9 +55,8 @@ def get_package():
 
             os.remove('vectordash-host.tar.gz')
 
-
     except OSError:
-        print(stylize("A Permission Denied Error was encountered. Try executing the command again as such: ", fg("red"))
+        print(stylize("A Permission Denied Error was encountered. Try executing the command again with sudo: ", fg("red"))
               + stylize("sudo vdhost get-package", fg("blue")))
 
     except Exception as e:

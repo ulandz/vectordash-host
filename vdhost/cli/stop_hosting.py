@@ -25,20 +25,19 @@ def stop_hosting():
         var_vd_folder = os.path.expanduser(var_folder + 'vectordash/')
        
         if not os.path.isfile(var_vd_folder + 'install_complete'):
-            print(stylize("Please run 'vdhost install' first!", fg("red")))
-            return
+            print("Please run " + stylize("vdhost install", fg("blue")) + " first!")
+            exit(0)
 
         # If directories don't exist, exit the program and instruct user to run 'vdhost install'
         if not os.path.isdir(var_folder) or not os.path.isdir(var_vd_folder):
             print(stylize("Could not exit the program", fg("red")))
-            print(stylize("Are you sure have run:", fg("red")), stylize("vdhost install", fg("blue")))
-            print(stylize("If not, please navigate to the vectordash-host package directory and run that command",
-                          fg("red")))
-            return
+            print(stylize("Are you sure have run:", fg("red")) + stylize("vdhost install", fg("blue")))
+            exit(0)
 
         if not os.path.isfile("/etc/supervisor/conf.d/vdclient.conf"):
-            print(stylize("Something went wrong during the install. Please try running 'vdhost install' again."))
-            return
+            print(stylize("Something went wrong during the installation. Please try running ", fg("red")) +
+                  stylize("vdhost install", fg("blue")) + stylize(" again.", fg("red")))
+            exit(0)
 
         # check for active instances
         login_file = os.path.expanduser(var_vd_folder + 'login.json')
@@ -52,17 +51,18 @@ def stop_hosting():
                 resp = r.text
                 resp = json.loads(resp)
                 num_instances = int(resp['active_instance'])
-                if (num_instances < 0):
-                    print("You do not have valid authentication. Did you run 'vdhost login'?")
+                if num_instances < 0:
+                    print(stylize("You do not have valid authentication. Did you run ", fg("red")) +
+                          stylize("vdhost login", fg("blue")))
                     exit(0)
-                elif (num_instances > 0):
+                elif num_instances > 0:
                     print("There are active sessions running on your machine. You cannot stop hosting until "
                           "those sessions are complete.")
                     exit(0)
-        except:
-            print("An error occurred, Please make sure you have run 'vdhost login' and provided "
-                  "the correct email address and machine key.")
-
+        except Exception:
+            print(stylize("An error occurred, Please make sure you have run ", fg("red")) +
+                  stylize("vdhost login ", fg("blue")) +
+                  stylize("and provided the correct email address and machine key", fg("red")))
 
         # File for checking if the client is running or not
         client_running_file = os.path.expanduser(var_vd_folder + 'client_running')
@@ -80,19 +80,9 @@ def stop_hosting():
             if int(p) == -1:
                 print("You are not currently running the client hosting process. Run " +
                       stylize("vdhost start-hosting", fg("blue")) + " to start hosting on Vectordash")
-                return
+                exit(0)
 
             subprocess.call("sudo supervisorctl stop vdclient", shell=True)
-
-            # kill the process with process id pid
-            #args = ['kill', '--', '-$(ps', '-o', 'pgid=', p, '|', 'grep', '-o', '[0-9]*)']
-            #subprocess.check_call(args)
-
-            # If the pids have not yet been killed, try again
-            #while pid_exists(p):
-            #    print("Attempting to force stop the client process")
-            #    args2 = ['kill', '-9', '-p', p]
-            #    subprocess.check_call(args2)
 
             # write -1 to pid file (indicating the hosting has stopped)
             f = open(client_running_file, 'w')
@@ -100,8 +90,8 @@ def stop_hosting():
             f.close()
 
         else:
-            print("Could not check the client_running file for process id. Did you ever start the client process?")
-            return
+            print("Could not check the client_running file for process id.")
+            exit(0)
 
     except ValueError as e:
         print(stylize("The following error was encountered: ", fg("red")) + str(e))

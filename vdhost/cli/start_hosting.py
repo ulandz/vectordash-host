@@ -21,16 +21,22 @@ def start_hosting():
         # Path to vectordash directory
         var_folder = os.path.expanduser('/var/')
         var_vd_folder = os.path.expanduser(var_folder + 'vectordash/')
+        client_vd_folder = os.path.expanduser(var_vd_folder + 'client/')
+
+        # If the var directory does not exist, create it
+        if not os.path.isdir(var_folder) or not os.path.isdir(var_vd_folder) or not os.path.isdir(client_vd_folder):
+            print(stylize("Error getting package. You have not ran ", fg("red")) + stylize("vdhost login", fg("blue")))
+            exit(0)
 
         if not os.path.isfile(var_vd_folder + 'install_complete'):
-            print(stylize("Please run 'vdhost install' first!", fg("red")))
-            return
+            print("Please run " + stylize("vdhost install", fg("blue")) + " first!")
+            exit(0)
 
         # path to login file
         login_file = os.path.expanduser(var_vd_folder + 'login.json')
         
         try:
-            with open(login_file) as f:
+            with open(login_file, 'r') as f:
                 data = json.load(f)
                 email = data["email"]
                 machine_key = data["machine_key"]
@@ -39,65 +45,63 @@ def start_hosting():
                 resp = r.text
                 resp = json.loads(resp)
                 if not resp['valid_authentication']:
-                    print("Invalid authentication information. Did you run " + stylize("vdhost login", fg("blue")) + "?")
+                    print(stylize("Invalid authentication information. You are not a verified host.", fg("red")))
                     exit(0)
-        except:
-            print("An error occurred, Please make sure you have run " + stylize("vdhost login", fg("blue")) +
-                  " and provided the correct email address and machine key.")
 
-        print(stylize("Launching the Vectordash client on this machine", fg("green")))
+        except Exception as e:
+            print(stylize("An error occurred, Please make sure you have run ", fg("red")) +
+                  stylize("vdhost login ", fg("blue")) +
+                  stylize("and provided the correct email address and machine key.", fg("red")))
+            exit(0)
 
         # If directories don't exist, exit the program and instruct user to run 'vdhost install'
         if not os.path.isdir(var_folder) or not os.path.isdir(var_vd_folder):
             print(stylize("Could not launch", fg("red")))
             print(stylize("Are you sure have run: ", fg("red")), stylize("vdhost install", fg("blue")))
-            print(stylize("If not, please navigate to the vectordash-host directory and run that command", fg("red")))
-            return
+            exit(0)
 
-        # Client file and its dependencies - should all be in /var/vectordash/
-        client_py = os.path.expanduser(var_vd_folder + 'client.py')
-        sshtunnel_py = os.path.expanduser(var_vd_folder + 'SSHtunnel.py')
-        networkingprotocol_py = os.path.expanduser(var_vd_folder + 'NetworkingProtocol.py')
-        specs_py = os.path.expanduser(var_vd_folder + 'specs.py')
-        containercontroller_py = os.path.expanduser(var_vd_folder + 'ContainerController.py')
-        helper_py = os.path.expanduser(var_vd_folder + 'helper.py')
+        # Client file and its dependencies - should all be in /var/vectordash/client/
+        client_py = os.path.expanduser(var_vd_folder + 'client.cpython-35.pyc')
+        sshtunnel_py = os.path.expanduser(var_vd_folder + 'SSHtunnel.cpython-35.pyc')
+        networkingprotocol_py = os.path.expanduser(var_vd_folder + 'NetworkingProtocol.cpython-35.pyc')
+        specs_py = os.path.expanduser(var_vd_folder + 'specs.cpython-35.pyc')
+        containercontroller_py = os.path.expanduser(var_vd_folder + 'ContainerController.cpython-35.pyc')
+        helper_py = os.path.expanduser(var_vd_folder + 'helper.cpython-35.pyc')
 
         # If any of the client files are missing, program will not execute
         if not os.path.isfile(client_py) or not os.path.isfile(sshtunnel_py) or not os.path.isfile(specs_py) or \
                 not os.path.isfile(networkingprotocol_py) or not os.path.isfile(containercontroller_py) or \
                 not os.path.isfile(helper_py):
-            print(stylize("It seems as though you have not downloaded one or more the following files:", fg("red")))
 
-            print(stylize(client_py, fg("red")))
-            print(stylize(sshtunnel_py, fg("red")))
-            print(stylize(networkingprotocol_py, fg("red")))
-            print(stylize(specs_py, fg("red")))
-            print(stylize(containercontroller_py, fg("red")))
-
-            print(stylize("Please go to https://vectordash.com/host/ to download them and make sure they are stored "
-                          "in the appropriate directory: " + var_vd_folder, fg("red")))
-            return
+            print(stylize("You are missing the Vectordash client package. Please run ", fg("red")) +
+                  stylize("vdhost get-package ", fg("blue")) +
+                  stylize("to get all missing files.", fg("red")))
+            print(stylize("\nPlease note: Only VERIFIED hosts can run this command.", fg("violet")))
+            exit(0)
 
         if not os.path.isfile("/etc/supervisor/conf.d/vdclient.conf"):
-            print(stylize("Something went wrong during the install. Please try running 'vdhost install' again.", fg("red")))
-            return
+            print(stylize("Something went wrong during the installation process. Please try running ", fg("red")) +
+                  stylize("vdhost install ", fg("blue")) +
+                  stylize("again.", fg("red")))
+            exit(0)
 
         else:
             try:
+                print(stylize("Launching the Vectordash client on this machine...", fg("green")))
                 # Run the client script
-                #args = ['python3', client_py]
-                #subprocess.check_call(args)
                 subprocess.call("sudo supervisorctl start vdclient", shell=True) 
             
             except subprocess.CalledProcessError:
-                print("It looks as if your files have been corrupted. Please go to https://vectordash.com/host/ "
-                      "to re-download the package and move the files to the appropriate directory: " + var_vd_folder)
+                print(stylize("It looks as if your files have been corrupted. Please run ", fg("red")) +
+                      stylize("vdhost get-package ", fg("blue")) +
+                      stylize("to get all missing files.", fg("red")))
+                exit(0)
 
-            except PermissionError:
+            except OSError:
                 print("You do not have permission to execute this. Try re-running the command as sudo: "
                       + stylize("sudo vdhost start-hosting", fg("blue")))
+                exit(0)
 
     except ValueError as e:
-        print(stylize("The following error was encountered: ", fg("red")) + str(e))
-        print(stylize("The Vectordash client could not be launched. Please make a github pull request with your error.",
-                      fg("red")))
+        print(stylize("The following error was encountered: " + str(e), fg("red")))
+        print(stylize("The Vectordash client could not be launched.", fg("red")))
