@@ -21,7 +21,8 @@ def is_running():
         var_vd_folder = os.path.expanduser(var_folder + 'vectordash/')
 
         if not os.path.isfile(var_vd_folder + 'install_complete'):
-            print("Please run " + stylize("vdhost install", fg("blue")) + " first!")
+            print("The Vectordash hosting client is NOT running because you have not setup your machine. Please run " +
+                  stylize("vdhost install", fg("blue")) + " first!")
             exit(0)
         
         client_running_file = os.path.expanduser(var_vd_folder + 'client_running')

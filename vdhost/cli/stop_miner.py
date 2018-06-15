@@ -24,7 +24,8 @@ def stop_miner(gpu_id):
         var_vd_folder = os.path.expanduser(var_folder + 'vectordash/')
 
         if not os.path.isfile(var_vd_folder + 'install_complete'):
-            print("Please run " + stylize("vdhost install", fg("blue")) + " first!")
+            print("Your machine has not yet been setup and thus is not running a miner. Please run " +
+                  stylize("vdhost install", fg("blue")) + " first!")
             exit(0)
 
         print("Stopping the mining process now...")
@@ -56,8 +57,8 @@ def stop_miner(gpu_id):
                 time.sleep(3)
 
         else:
-            print("Please run " + stylize("vdhost start-miner " + str(gpu_id), fg("blue")) +
-                  " before trying to stop mining.")
+            print("Your miner was not started with vdhost. Please run " +
+                  stylize("vdhost start-miner " + str(gpu_id), fg("blue")) + " before trying to stop mining.")
             exit(0)
   
     except ValueError as e:

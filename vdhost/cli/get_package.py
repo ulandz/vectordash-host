@@ -54,6 +54,7 @@ def get_package():
             subprocess.call(command, stdout=subprocess.PIPE)
 
             os.remove('vectordash-host.tar.gz')
+            print(stylize("Package received.", fg("green")))
 
     except OSError:
         print(stylize("A Permission Denied Error was encountered. Try executing the command again with sudo: ", fg("red"))

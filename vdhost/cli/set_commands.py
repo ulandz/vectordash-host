@@ -21,7 +21,8 @@ def set_commands(gpu_id):
         commands_file = os.path.expanduser(mining_folder + 'commands')
         
         if not os.path.isfile(var_vd_folder + 'install_complete'):
-            print("Please run " + stylize("vdhost install", fg("blue")) + " first!")
+            print("You cannot setup your autoswitching miner until you have setup your machine. Please run " +
+                  stylize("vdhost install", fg("blue")) + " first!")
             exit(0)
 
         curr_data = {}  # dict containing current data

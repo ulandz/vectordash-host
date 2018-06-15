@@ -29,7 +29,8 @@ def start_hosting():
             exit(0)
 
         if not os.path.isfile(var_vd_folder + 'install_complete'):
-            print("Please run " + stylize("vdhost install", fg("blue")) + " first!")
+            print("You cannot start hosting until you have setup your machine. Please run " +
+                  stylize("vdhost install", fg("blue")) + " first!")
             exit(0)
 
         # path to login file

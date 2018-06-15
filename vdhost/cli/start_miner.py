@@ -23,7 +23,8 @@ def start_miner(gpu_id):
         commands_file = os.path.expanduser(mining_folder + 'commands')
 
         if not os.path.isfile(var_vd_folder + 'install_complete'):
-            print("Please run " + stylize("vdhost install", fg("blue")) + " first!")
+            print("You cannot start your miner until you have setup your machine. Please run " +
+                  stylize("vdhost install", fg("blue")) + " first!")
             exit(0)
 
         # If the mining file has been created, run the miner
