@@ -62,12 +62,12 @@ def start_hosting():
             exit(0)
 
         # Client file and its dependencies - should all be in /var/vectordash/client/
-        client_py = os.path.expanduser(var_vd_folder + 'client.cpython-36.pyc')
-        sshtunnel_py = os.path.expanduser(var_vd_folder + 'SSHtunnel.cpython-36.pyc')
-        networkingprotocol_py = os.path.expanduser(var_vd_folder + 'NetworkingProtocol.cpython-36.pyc')
-        specs_py = os.path.expanduser(var_vd_folder + 'specs.cpython-36.pyc')
-        containercontroller_py = os.path.expanduser(var_vd_folder + 'ContainerController.cpython-36.pyc')
-        helper_py = os.path.expanduser(var_vd_folder + 'helper.cpython-36.pyc')
+        client_py = os.path.expanduser(var_vd_folder + 'client.cpython-35.pyc')
+        sshtunnel_py = os.path.expanduser(var_vd_folder + 'SSHtunnel.cpython-35.pyc')
+        networkingprotocol_py = os.path.expanduser(var_vd_folder + 'NetworkingProtocol.cpython-35.pyc')
+        specs_py = os.path.expanduser(var_vd_folder + 'specs.cpython-35.pyc')
+        containercontroller_py = os.path.expanduser(var_vd_folder + 'ContainerController.cpython-35.pyc')
+        helper_py = os.path.expanduser(var_vd_folder + 'helper.cpython-35.pyc')
 
         # If any of the client files are missing, program will not execute
         if not os.path.isfile(client_py) or not os.path.isfile(sshtunnel_py) or not os.path.isfile(specs_py) or \
