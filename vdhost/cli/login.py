@@ -39,6 +39,7 @@ def login():
 
         # Ask user for machine key
         machine_key = input(stylize("Machine key: ", fg("blue")))
+        print("URL: " + VECTORDASH_URL + "authenticate-host/")
 
         r = requests.post(VECTORDASH_URL + "authenticate-host/",
                           data={'email': email, 'machine_key': machine_key})
