@@ -6,8 +6,12 @@ import json
 
 from colored import fg
 from colored import stylize
+from os import environ
 
-from vdhost import VECTORDASH_URL
+if environ.get('VECTORDASH_BASE_URL'):
+    VECTORDASH_URL = environ.get('VECTORDASH_BASE_URL')
+else:
+    VECTORDASH_URL = "http://vectordash.com/"
 
 
 @click.command(name='start-hosting')
