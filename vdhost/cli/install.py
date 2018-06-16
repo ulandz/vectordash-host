@@ -17,6 +17,11 @@ def install():
     try:
         print(stylize("Launching the Vectordash installation process on this machine", fg("green")))
         print(stylize("If prompted with any questions, please hit ENTER for default values", fg("green")))
+        response = input(stylize("This process can take upwards of 20+ minutes to a few hours depending on your download speeds. "
+                                 "Do you want to begin the installation process? [yes/no]", fg("green")))
+
+        if "y" not in response:
+            return
 
         # Path to install script and pip requirements file - should be in the current directory when this is executed
         install_script = os.path.expanduser('/var/vectordash/client/install.sh')
