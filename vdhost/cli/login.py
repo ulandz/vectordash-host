@@ -9,6 +9,7 @@ from os import environ
 
 if environ.get('VECTORDASH_BASE_URL'):
     VECTORDASH_URL = environ.get('VECTORDASH_BASE_URL')
+    print('Using development URL:' + VECTORDASH_URL)
 else:
     VECTORDASH_URL = "http://vectordash.com/"
 
@@ -43,7 +44,6 @@ def login():
 
         # Ask user for machine key
         machine_key = input(stylize("Machine key: ", fg("blue")))
-        print("URL: " + VECTORDASH_URL + "authenticate-host/")
 
         r = requests.post(VECTORDASH_URL + "authenticate-host/",
                           data={'email': email, 'machine_key': machine_key})

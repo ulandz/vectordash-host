@@ -7,8 +7,11 @@ import subprocess
 from colored import fg
 from colored import stylize
 
-from vdhost import VECTORDASH_URL
-
+if environ.get('VECTORDASH_BASE_URL'):
+    VECTORDASH_URL = environ.get('VECTORDASH_BASE_URL')
+    print('Using development URL:' + VECTORDASH_URL)
+else:
+    VECTORDASH_URL = "http://vectordash.com/"
 
 @click.command(name='get-package')
 def get_package():
