@@ -66,7 +66,7 @@ def login():
             print(stylize("Saved login information", fg("green")))
 
     except OSError:
-        print(stylize("A Permission Denied Error was encountered. Try executing the command again with sudo: ", fg("red"))
+        print(stylize("Could not save login credentials. Please run ", fg("red"))
               + stylize("sudo vdhost login", fg("blue")))
         
     except Exception as e:

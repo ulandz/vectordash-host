@@ -16,9 +16,9 @@ def install():
     """
     try:
         print(stylize("Launching the Vectordash installation process on this machine", fg("green")))
-        print(stylize("If prompted with any questions, please hit ENTER for default values", fg("green")))
-        response = input(stylize("This process can take upwards of 20+ minutes to a few hours depending on your download speeds. "
-                                 "Do you want to begin the installation process? [yes/no]", fg("green")))
+        print(stylize("If prompted with any questions, please hit ENTER and leave default values", fg("green")))
+        response = input(stylize("This process can take 20 minutes to a few hours depending on your download speeds. "
+                                 "Do you want to begin the installation process now? [yes/no]", fg("green")))
 
         if "y" not in response:
             return
@@ -32,7 +32,6 @@ def install():
                   stylize("vdhost get-package ", fg("blue")) +
                   stylize("to get all missing files.", fg("red")))
 
-            print(stylize("\nPlease note: Only VERIFIED hosts can run this command.", fg("violet")))
             exit(0)
 
         else:
