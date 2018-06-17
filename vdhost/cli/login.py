@@ -17,9 +17,7 @@ else:
 @click.command(name='login')
 def login():
     """
-    args: none |
-    Allows host to login on machine to be hosted
-
+    Login with your Vectordash credentials.
     """
     try:
         # Path to vectordash directory

@@ -1,6 +1,5 @@
 import click
 
-from vdhost.cli.get_package import get_package
 from vdhost.cli.install import install
 from vdhost.cli.status import status
 from vdhost.cli.login import login
@@ -23,10 +22,9 @@ def cli():
 
 
 def add_commands(cli):
-    cli.add_command(get_package)            # Retrieves the client package for the hosting
+    cli.add_command(login)  # Allows the user to authenticate themselves and their machine
     cli.add_command(install)                # Installs all the dependencies for hosting on the machine
     cli.add_command(status)                 # Checks if the client is running
-    cli.add_command(login)                  # Allows the user to authenticate themselves and their machine
     cli.add_command(set_commands)           # Allows to user to set auto-switching miner
     cli.add_command(start_hosting)          # Bring the hosts machine online for guests to rent
     cli.add_command(start_miner)            # Run the miner on the host machine while it is idle

@@ -8,7 +8,7 @@ from colored import fg, bg, attr, stylize
 @click.command(name='status')
 def status():
     """
-    args: None | Returns the status of the Vectordash client.
+    Checks the status of the Vectordash client.
     """
     try:
         # Path to vectordash directory
@@ -16,7 +16,7 @@ def status():
         var_vd_folder = os.path.expanduser(var_folder + 'vectordash/')
 
         if not os.path.isfile(var_vd_folder + 'install_complete'):
-            print('Vectordash client status: ' + '%s%sDisabled %s' % (fg('red'), attr('bold'), attr('reset')))
+            print('Vectordash status: ' + '%s%sDisabled %s' % (fg('red'), attr('bold'), attr('reset')))
             exit(0)
         
         client_running_file = os.path.expanduser(var_vd_folder + 'client_running')
@@ -31,10 +31,10 @@ def status():
                 print('Vectordash status: ' + '%s%sRunning %s' % (fg('chartreuse_4'), attr('bold'), attr('reset')))
 
             else:
-                print('Vectordash client status: ' + '%s%sDisabled %s' % (fg('red'), attr('bold'), attr('reset')))
+                print('Vectordash status: ' + '%s%sDisabled %s' % (fg('red'), attr('bold'), attr('reset')))
 
         else:
-            print('Vectordash client status: ' + '%s%sDisabled %s' % (fg('red'), attr('bold'), attr('reset')))
+            print('Vectordash status: ' + '%s%sDisabled %s' % (fg('red'), attr('bold'), attr('reset')))
 
     except ValueError as e:
-        print('Vectordash client status: ' + '%s%sDisabled %s' % (fg('red'), attr('bold'), attr('reset')))
+        print('Vectordash status: ' + '%s%sDisabled %s' % (fg('red'), attr('bold'), attr('reset')))

@@ -1,56 +1,85 @@
 import click
 import subprocess
 import os
+import json
+import requests
+from colored import fg, stylize, attr
+from os import environ
 
-from colored import fg
-from colored import stylize
+
+# getting the base API URL
+if environ.get('VECTORDASH_BASE_URL'):
+    VECTORDASH_URL = environ.get('VECTORDASH_BASE_URL')
+else:
+    VECTORDASH_URL = "http://vectordash.com/"
 
 
 @click.command()
 def install():
     """
-    args: None |
-    Runs the install process on the host machine to configure it with ML libraries
-    and any other dependencies
-
+    Installs the Vectordash hosting client.
     """
+
+    # the prompt we display before installation
+    prompt = "This command will begin the host installation process.\nPlease note that this will download 15GB+ of + " \
+             "data and can take upwards of an hour to complete.\nIf prompted with any selections, please press ENTER " \
+             "to pick the default values.""\n\nWould you like to begin the host installation process now? " + \
+             '%s%s[yes/no]%s ' % (fg('orchid'), attr('bold'), attr('reset'))
+
+    # the JSON file where login credentials are stored
+    login_file = '/var/vectordash/login.json'
+
     try:
-        print(stylize("Launching the Vectordash installation process on this machine", fg("green")))
-        print(stylize("If prompted with any questions, please hit ENTER and leave default values", fg("green")))
-        response = input(stylize("This process can take 20 minutes to a few hours depending on your download speeds. "
-                                 "Do you want to begin the installation process now? [yes/no]", fg("green")))
+
+        # ensuring the login file exists
+        if not os.path.isfile(login_file):
+            print("You are not logged in. Please run " +
+                  stylize("vdhost login", fg("blue")) + ' to continue.')
+            return
+
+        # opening the login file
+        with open(login_file, 'r') as f:
+            data = json.load(f)
+
+            # grabbing the email and machine secret
+            email = data["email"]
+            machine_key = data["machine_key"]
+
+        # getting the package
+        r = requests.post(VECTORDASH_URL + "machines/getpackage/",
+                          data={'email': email, 'machine_key': machine_key})
+
+        # if the credentials are invalid, we display an error
+        if r.status_code != 200:
+            print("Invalid authentication information . Please run " +
+                  stylize("vdhost login", fg("blue")) + ' to continue.')
+            return
+
+        # writing out the tarball
+        open('vectordash-host.tar.gz', 'wb').write(r.content)
+
+        # unzipping the tarball
+        command = ['sudo', 'tar', '-C', '/var/vectordash/client/',
+                   '-xvf', 'vectordash-host.tar.gz', '--strip-components=1']
+
+        # calling the unzip command
+        subprocess.call(command, stdout=subprocess.PIPE)
+
+        # delete the tarball once the unzip has been completed
+        os.remove('vectordash-host.tar.gz')
+
+        # displaying the prompt and asking the user if they want to continue with the installation process
+        response = input(prompt)
 
         if "y" not in response:
             return
 
-        # Path to install script and pip requirements file - should be in the current directory when this is executed
-        install_script = os.path.expanduser('/var/vectordash/client/install.sh')
+        # Running the installation script
+        args = ['bash', '/var/vectordash/client/install.sh']
+        subprocess.check_call(args)
 
-        # If either install script or requirements file is missing, exit the program
-        if not os.path.isfile(install_script):
-            print(stylize("You are missing the Vectordash client files. Please run ", fg("red")) +
-                  stylize("vdhost get-package ", fg("blue")) +
-                  stylize("to get all missing files.", fg("red")))
+    except OSError:
+        print('Please run this command with sudo:' + stylize("sudo vdhost install", fg("blue")))
 
-            exit(0)
-
-        else:
-            try:
-                # Run the installation script
-                args = ['bash', install_script]
-                subprocess.check_call(args)
-
-            except subprocess.CalledProcessError:
-                print(stylize("It looks as if your files have been corrupted. Please run ", fg("red")) +
-                      stylize("vdhost get-package ", fg("blue")) +
-                      stylize("to get all missing files.", fg("red")))
-                exit(0)
-
-            except OSError:
-                print("You do not have permission to execute this. Try re-running the command as sudo: "
-                      + stylize("sudo vdhost install", fg("blue")))
-                exit(0)
-
-    except ValueError as e:
-        print(stylize("The following error was encountered: " + str(e), fg("red")))
-        print(stylize("The Vectordash client could not be launched.", fg("red")))
+    except Exception as e:
+        print("An unexpected error has occurred: " + stylize(e, fg("red")) + str(e))
