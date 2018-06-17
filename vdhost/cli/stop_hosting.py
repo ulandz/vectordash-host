@@ -102,6 +102,7 @@ def stop_hosting():
     except ValueError as e:
         print(stylize("The following error was encountered: ", fg("red")) + str(e))
 
+
 def pid_exists(pid):
     """
     Check whether pid exists in the current process table.
