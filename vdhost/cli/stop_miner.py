@@ -20,8 +20,7 @@ def stop_miner(gpu_id):
     """
     try:
         # Path to vectordash directory
-        var_folder = os.path.expanduser('/var/')
-        var_vd_folder = os.path.expanduser(var_folder + 'vectordash/')
+        var_vd_folder = '/var/vectordash/'
 
         if not os.path.isfile(var_vd_folder + 'install_complete'):
             print("Your machine has not yet been setup and thus is not running a miner. Please run " +

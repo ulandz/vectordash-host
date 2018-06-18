@@ -21,9 +21,9 @@ def login():
     """
     try:
         # Path to vectordash directory
-        var_folder = os.path.expanduser('/var/')
-        var_vd_folder = os.path.expanduser(var_folder + 'vectordash/')
-        client_vd_folder = os.path.expanduser(var_vd_folder + 'client/')
+        var_folder = '/var/'
+        var_vd_folder = var_folder + 'vectordash/'
+        client_vd_folder = var_vd_folder + 'client/'
 
         # If the var directory does not exist, create it
         if not os.path.isdir(var_folder):
