@@ -3,7 +3,7 @@ import os
 from setuptools import find_packages, setup
 
 project = "vdhost"
-version = "0.8.1"
+version = "0.8.3"
 
 with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
     long_description = readme.read()

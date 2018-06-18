@@ -21,15 +21,14 @@ def cli():
     pass
 
 
-def add_commands(cli):
-    cli.add_command(login)  # Allows the user to authenticate themselves and their machine
-    cli.add_command(install)                # Installs all the dependencies for hosting on the machine
-    cli.add_command(status)                 # Checks if the client is running
-    cli.add_command(set_commands)           # Allows to user to set auto-switching miner
-    cli.add_command(start_hosting)          # Bring the hosts machine online for guests to rent
-    cli.add_command(start_miner)            # Run the miner on the host machine while it is idle
-    cli.add_command(stop_hosting)           # Stop the client on the host machine to take the machines offline
-    cli.add_command(stop_miner)             # Stop the miner on the host machine
+# adding the commands
+cli.add_command(login)                  # Authenticates a machine
+cli.add_command(install)                # Installs all the dependencies for hosting on the machine
+cli.add_command(status)                 # Checks if the client is running
+cli.add_command(start_hosting)          # Bring the hosts machine online for guests to rent
+cli.add_command(stop_hosting)           # Stop the client on the host machine to take the machines offline
+cli.add_command(set_commands)           # Allows to user to set auto-switching miner
+cli.add_command(start_miner)            # Run the miner on the host machine while it is idle
+cli.add_command(stop_miner)             # Stop the miner on the host machine
 
 
-add_commands(cli)
