@@ -12,8 +12,7 @@ def status():
     """
     try:
         # Path to vectordash directory
-        var_folder = os.path.expanduser('/var/')
-        var_vd_folder = os.path.expanduser(var_folder + 'vectordash/')
+        var_vd_folder = '/var/vectordash/'
 
         if not os.path.isfile(var_vd_folder + 'install_complete'):
             print('Vectordash status: ' + '%s%sDisabled %s' % (fg('red'), attr('bold'), attr('reset')))

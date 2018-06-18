@@ -15,10 +15,10 @@ def set_commands(gpu_id):
     """
     try:
 
-        var_folder = os.path.expanduser('/var/')
-        var_vd_folder = os.path.expanduser(var_folder + 'vectordash/')
-        mining_folder = os.path.expanduser(var_vd_folder + 'mining/')
-        commands_file = os.path.expanduser(mining_folder + 'commands')
+        var_folder = '/var/'
+        var_vd_folder = var_folder + 'vectordash/'
+        mining_folder = var_vd_folder + 'mining/'
+        commands_file = mining_folder + 'commands'
         
         if not os.path.isfile(var_vd_folder + 'install_complete'):
             print("You cannot setup your autoswitching miner until you have setup your machine. Please run " +

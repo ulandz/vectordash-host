@@ -17,10 +17,8 @@ def start_miner(gpu_id):
     """
     try:
         # Path to mining bash file
-        var_folder = os.path.expanduser('/var/')
-        var_vd_folder = os.path.expanduser(var_folder + 'vectordash/')
-        mining_folder = os.path.expanduser(var_vd_folder + 'mining/')
-        commands_file = os.path.expanduser(mining_folder + 'commands')
+        var_vd_folder = '/var/vectordash/'
+        commands_file = var_vd_folder + 'mining/commands'
 
         if not os.path.isfile(var_vd_folder + 'install_complete'):
             print("You cannot start your miner until you have setup your machine. Please run " +

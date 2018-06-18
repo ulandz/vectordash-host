@@ -26,8 +26,7 @@ def stop_hosting():
         print(stylize("Stopping the Vectordash client on this machine", fg("green")))
 
         # Path to vectordash directory
-        var_folder = os.path.expanduser('/var/')
-        var_vd_folder = os.path.expanduser(var_folder + 'vectordash/')
+        var_vd_folder = '/var/vectordash/'
        
         if not os.path.isfile(var_vd_folder + 'install_complete'):
             print("You are not currently running the Vectordash hosting client because you have not setup your machine "
@@ -35,7 +34,7 @@ def stop_hosting():
             exit(0)
 
         # If directories don't exist, exit the program and instruct user to run 'vdhost install'
-        if not os.path.isdir(var_folder) or not os.path.isdir(var_vd_folder):
+        if not os.path.isdir(var_vd_folder):
             print(stylize("Could not exit the program", fg("red")))
             print(stylize("Are you sure have run:", fg("red")) + stylize("vdhost install", fg("blue")))
             exit(0)
@@ -71,7 +70,7 @@ def stop_hosting():
                   stylize("and provided the correct email address and machine key", fg("red")))
 
         # File for checking if the client is running or not
-        client_running_file = os.path.expanduser(var_vd_folder + 'client_running')
+        client_running_file = var_vd_folder + 'client_running'
 
         # If the client pid file exists, stop the client
         if os.path.exists(client_running_file):
