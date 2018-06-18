@@ -1,7 +1,7 @@
 # vdhost
 A command line tool for hosting your machine as [Vectordash](http://vectordash.com) GPU instances. Can be installed with `pip install vdhost`.
 
-For a more detailed overview on how to get started, how the commands work, or general questions, please visit our[hosting page.](https://vectordash.com.hosting)
+For a more detailed overview on how to get started, how the commands work, or general questions, please visit our [hosting page.](https://vectordash.com.hosting)
 #### Usage Examples
 
 `vdhost login` - Authenticates the current machine.
