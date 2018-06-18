@@ -11,8 +11,7 @@ from colored import stylize
 @click.argument('gpu_id', nargs=1, type=int, required=True)
 def start_miner(gpu_id):
     """
-    args: gpu_id |
-    Run the miner on the machine that was set up by user with vdhost set-commands
+    args: gpu_id | Starts a miner on a GPU.
 
     """
     try:

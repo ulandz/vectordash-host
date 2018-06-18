@@ -9,7 +9,7 @@ import json
 @click.argument('gpu_id', required=True, nargs=1, type=int)
 def set_commands(gpu_id):
     """
-    args: gpu_id | Set a GPU's mining command.
+    args: gpu_id | Sets a GPU's mining command.
     """
     try:
 
@@ -43,7 +43,7 @@ def set_commands(gpu_id):
         command_dict = json.loads(data)
 
         # prompting the user to enter a command for this GPU
-        prompt = "Enter a command that will start the miner on GPU {}. Be sure to provide absolute paths.".format(gpu_id)
+        prompt = "Enter a bash command that will start the miner on GPU {}. Be sure to provide absolute paths.\n".format(gpu_id)
 
         # getting the command
         mining_command = input(prompt)
@@ -54,6 +54,8 @@ def set_commands(gpu_id):
         # writing out the updated commands dict
         with open(commands_json, 'w') as f:
             f.write(json.dumps(command_dict))
+
+        print(stylize("Mining command successfully saved.", fg("green")))
 
     except Exception as e:
         print(stylize("The following error was encountered: " + str(e), fg("red")))
