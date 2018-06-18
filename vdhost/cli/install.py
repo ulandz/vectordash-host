@@ -21,7 +21,7 @@ def install():
     """
 
     # the prompt we display before installation
-    prompt = "This command will begin the host installation process.\nPlease note that this will download 15GB+ of + " \
+    prompt = "This command will begin the Vectordash host installation process.\nPlease note that this will download 15GB+ of " \
              "data and can take upwards of an hour to complete.\nIf prompted with any selections, please press ENTER " \
              "to pick the default values.""\n\nWould you like to begin the host installation process now? " + \
              '%s%s[yes/no]%s ' % (fg('orchid'), attr('bold'), attr('reset'))
