@@ -14,10 +14,10 @@ else:
     VECTORDASH_URL = "http://vectordash.com/"
 
 
-@click.command(name='start-hosting')
+@click.command(name='start')
 def start_hosting():
     """
-    Connects this machine to Vectordash.
+    Starts the Vectordash client.
     """
     try:
 
@@ -56,8 +56,7 @@ def start_hosting():
 
         # Launching the the client script
         # note that supervisor prints a message, so we don't need to print one ourselves
-        subprocess.call("sudo supervisorctl start vdclient", shell=True)
-
+        subprocess.call("sudo supervisorctl start vdhost", shell=True)
 
     except OSError:  # if we get a permissions error
         print(stylize("Please run this command as sudo:", fg("red"))

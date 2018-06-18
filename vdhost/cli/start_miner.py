@@ -56,3 +56,6 @@ def start_miner(gpu_id):
         print(stylize("Your mining commands could not be executed. Are you sure you are using absolute paths?",
                       fg("red")))
 
+    except OSError:  # if we get a permissions error
+        print(stylize("Please run this command as sudo:", fg("red"))
+              + stylize("sudo vdhost start-miner <gpu_id>", fg("blue")))
