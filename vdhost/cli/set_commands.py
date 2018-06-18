@@ -9,118 +9,51 @@ import json
 @click.argument('gpu_id', required=True, nargs=1, type=int)
 def set_commands(gpu_id):
     """
-    args: gpu_id |
-    Prompt user to set up commands for mining on their machine
-
+    args: gpu_id | Set a GPU's mining command.
     """
     try:
 
-        var_folder = '/var/'
-        var_vd_folder = var_folder + 'vectordash/'
-        mining_folder = var_vd_folder + 'mining/'
-        commands_file = mining_folder + 'commands'
-        
-        if not os.path.isfile(var_vd_folder + 'install_complete'):
-            print("You cannot setup your autoswitching miner until you have setup your machine. Please run " +
-                  stylize("vdhost install", fg("blue")) + " first!")
-            exit(0)
+        # if the installation has not been completed
+        if not os.path.isfile('/var/vectordash/install_complete'):
+            print("The Vectordash client has not been installed. Please run " +
+                  stylize("sudo vdhost install", fg("blue")))
+            return
 
-        curr_data = {}  # dict containing current data
+        # ensuring the login file exists
+        if not os.path.isfile('/var/vectordash/login.json'):
+            print("You are not logged in. Please run " +
+                  stylize("vdhost login", fg("blue")) + ' to continue.')
+            return
 
-        # If the .vectordash directory doesn't exist, create both it and the mining directory
-        if not os.path.isdir(var_folder):
-            os.mkdir(var_folder)
-            os.mkdir(mining_folder)
-            f = open(commands_file, 'w+')
-            f.write('{}')
-            f.close()
+        # create the mining directory if it doesn't exist
+        commands_json = '/var/vectordash/mining.json'
 
-        # If the mining directory doesn't exist, create it
-        elif not os.path.isdir(mining_folder):
-            os.mkdir(mining_folder)
-            f = open(commands_file, 'w+')
-            f.write('{}')
-            f.close()
-    
-        elif not os.path.exists(commands_file):
-            f = open(commands_file, 'w+')
-            f.write('{}')
-            f.close()
+        # if mining.json doesn't exist, we create it
+        if not os.path.isfile(commands_json):
+
+            # creating mining.json
+            with open(commands_json, 'w+') as f:
+                f.write('{}')
 
         # read from commands file
-        f = open(commands_file, 'r')
-        dat = f.read()
-        f.close()
+        with open(commands_json, 'r') as f:
+            data = f.read()
 
-        curr_data = json.loads(dat)  # dict
+        # loading the json text as a python dict
+        command_dict = json.loads(data)
 
+        # prompting the user to enter a command for this GPU
+        prompt = "Enter a command that will start the miner on GPU {}. Be sure to provide absolute paths.".format(gpu_id)
 
-        # Mining commands list
-        #commands = []
+        # getting the command
+        mining_command = input(prompt)
 
-        # get commands from user
-        #cmd = input(stylize("Please enter the commands you use to start your miner, line by line.\n"
-        #                    "Make sure that all paths provided are absolute paths\n"
-        #            "Once you are done, do not type anything and press ENTER twice:\n\n", fg("green")))
+        # updating the command dictionary
+        command_dict[gpu_id] = mining_command
 
-        print("BP-2")
-        
-        #cmd = input(stylize("Please enter the path to a bash script that, when run, will start mining on the GPU with id " + str(gpu_id) + ":\n\n", fg("green")))
-        cmd = input("Please enter path: ")
-        print("BP-1")
-
-        curr_data.update({str(gpu_id): cmd})
-    
-        print("BP0")       
- 
-        new_data = json.dumps(curr_data) # string
-    
-        print("BP1")
-
-        # write back to commands file
-        f = open(commands_file, 'w')
-        f.write(new_data)
-        f.close()
-        
-        print("BP2")
-
-        # read from pid file
-        #f = open(pid_file, 'r')
-        #dat = f.read()
-        #f.close()
-
-        #curr_pid = json.loads(dat) # dict
-        #curr_pid.update({str(gpu_id): -1})
-
-        #new_pid = json.dumps(curr_pid) # string
-
-        # write back to pid file
-        #f = open(pid_file, 'w')
-        #f.write(new_pid)
-        #f.close()
-
-        #commands.append(cmd)
-
-        # Add all of the input commands to the list
-        #while 1:
-        #    cmd = input("")
-        #    if cmd == '':
-        #        break
-        #    commands.append(cmd)
-
-        # Save commands to mining bash file
-        #mine_file = mining_folder + 'mine.sh'
-        #f = open(mine_file, 'w')
-        #f.write("#!/usr/bin/env bash\n")
-        #for cmd in commands:
-        #    f.write(cmd)
-        #    f.write('\n')
-        #f.close()
-
-        # Mining process is NOT running, so give pid file a value of -1
-        #f = open(pid_file, 'w+')
-        #f.write('-1')
-        #f.close()
+        # writing out the updated commands dict
+        with open(commands_json, 'w') as f:
+            f.write(json.dumps(command_dict))
 
     except Exception as e:
         print(stylize("The following error was encountered: " + str(e), fg("red")))

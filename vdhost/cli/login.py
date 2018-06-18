@@ -9,7 +9,6 @@ from os import environ
 
 if environ.get('VECTORDASH_BASE_URL'):
     VECTORDASH_URL = environ.get('VECTORDASH_BASE_URL')
-    print('Using development URL:' + VECTORDASH_URL)
 else:
     VECTORDASH_URL = "http://vectordash.com/"
 
@@ -41,7 +40,7 @@ def login():
         email = input(stylize("Email: ", fg("blue")))
 
         # Ask user for machine key
-        machine_key = input(stylize("Machine key: ", fg("blue")))
+        machine_key = input(stylize("Machine secret: ", fg("blue")))
 
         r = requests.post(VECTORDASH_URL + "authenticate-host/",
                           data={'email': email, 'machine_key': machine_key})
@@ -49,19 +48,20 @@ def login():
         resp = r.text
         resp = json.loads(resp)
 
+        # if the authentication info is invalid
         if not resp['valid_authentication']:
             print(stylize("Your authentication information is invalid.", fg("red")))
+            return
 
-        else:
-            # login credentials
-            login_file = var_vd_folder + 'login.json'
+        # login credentials
+        login_file = var_vd_folder + 'login.json'
 
-            # Securely save data
-            with open(login_file, 'w') as f:
-                data = {'email': email, 'machine_key': machine_key}
-                json.dump(data, f)
-
-            print(stylize("Saved login information", fg("green")))
+        # Writing the credentials to login.json
+        with open(login_file, 'w') as f:
+            data = {'email': email, 'machine_key': machine_key}
+            json.dump(data, f)
+            print(stylize("Login information saved.", fg("green")))
+            return
 
     except OSError:
         print(stylize("Could not save login credentials. Please run ", fg("red"))
