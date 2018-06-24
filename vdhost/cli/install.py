@@ -14,7 +14,7 @@ else:
     VECTORDASH_URL = "http://vectordash.com/"
 
 
-@click.command()
+@click.command(name='install')
 def install():
     """
     Installs the Vectordash hosting client.
