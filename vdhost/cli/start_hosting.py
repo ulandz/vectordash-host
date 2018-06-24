@@ -50,8 +50,8 @@ def start_hosting():
 
         # if the login failed we display an error and return
         if not resp['valid_authentication']:
-            print("Invalid authentication information . Please run " +
-                stylize("vdhost login", fg("blue")) + ' to continue.')
+            print("Invalid authentication information. Please run " +
+                stylize("vdhost login", fg("blue")) + '.')
             return
 
         # Launching the the client script
