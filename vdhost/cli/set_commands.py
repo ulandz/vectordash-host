@@ -43,7 +43,7 @@ def set_commands(gpu_id):
         command_dict = json.loads(data)
 
         # prompting the user to enter a command for this GPU
-        prompt = "Enter a bash command that will start the miner on GPU {}. Be sure to provide absolute paths.\n".format(gpu_id)
+        prompt = "Enter path to a bash script that will start the miner on GPU {}. Be sure to provide absolute paths.\n".format(gpu_id)
 
         # getting the command
         mining_command = input(prompt)
@@ -55,7 +55,7 @@ def set_commands(gpu_id):
         with open(commands_json, 'w') as f:
             f.write(json.dumps(command_dict))
 
-        print(stylize("Mining command successfully saved.", fg("green")))
+        print(stylize("Mining file successfully saved.", fg("green")))
 
     except Exception as e:
         print(stylize("The following error was encountered: " + str(e), fg("red")))

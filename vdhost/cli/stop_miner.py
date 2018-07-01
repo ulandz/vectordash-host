@@ -57,11 +57,6 @@ def stop_miner(gpu_id):
                 print("Attempting to stop mining")
                 os.killpg(pgrp, signal.SIGKILL)
                 time.sleep(3)
-
-        else:
-            print("Your miner was not started with vdhost. Please run " +
-                  stylize("vdhost start-miner " + str(gpu_id), fg("blue")) + " before trying to stop mining.")
-            exit(0)
   
     except ValueError as e:
         print(stylize("The following error was encountered: " + str(e), fg("red")))

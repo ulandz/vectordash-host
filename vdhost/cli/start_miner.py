@@ -17,7 +17,7 @@ def start_miner(gpu_id):
     try:
         # Path to mining bash file
         var_vd_folder = '/var/vectordash/'
-        commands_file = var_vd_folder + 'mining/commands'
+        commands_file = var_vd_folder + 'mining.json'
 
         if not os.path.isfile(var_vd_folder + 'install_complete'):
             print("You cannot start your miner until you have setup your machine. Please run " +
@@ -33,14 +33,15 @@ def start_miner(gpu_id):
             
             # turn commands str into dict
             commands = json.loads(commands)
-            print(commands)
 
             # get command associated with gpu_id and run miner if possible
             if str(gpu_id) in commands.keys():
                 # run the miner
                 cmd = commands[str(gpu_id)]
                 print("Running the miner...")
+                print(cmd)
                 args = ['chmod', '+x', cmd]
+                print(cmd)
                 subprocess.check_call(args)
                 p = subprocess.Popen(cmd.split(' '), preexec_fn=os.setsid)
 
