@@ -49,7 +49,7 @@ def set_commands(gpu_id):
         mining_command = input(prompt)
 
         # updating the command dictionary
-        command_dict[gpu_id] = mining_command
+        command_dict[str(gpu_id)] = mining_command
 
         # writing out the updated commands dict
         with open(commands_json, 'w') as f:
