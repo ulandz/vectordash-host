@@ -20,6 +20,9 @@ def stop_miner(gpu_id):
     """
     try:
 
+        var_folder = os.path.expanduser('/var/')
+        var_vd_folder = os.path.expanduser(var_folder + 'vectordash/')
+
         if not os.path.isfile(var_vd_folder + 'install_complete'):
             print(stylize("Please run 'vdhost install' first!", fg("red")))
             return
