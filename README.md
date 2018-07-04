@@ -1,4 +1,4 @@
-![Vectordash](https://vectordash-static.s3.amazonaws.com/images/logo-black.png)
+![Vectordash](https://vectordash-static.s3.amazonaws.com/images/logo-black.png | width=100)
 
 # vdhost
 A command line tool for hosting your machine as [Vectordash](http://vectordash.com) GPU instances. Can be installed with `pip install vdhost`.
